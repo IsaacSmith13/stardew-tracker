@@ -1,28 +1,14 @@
 import { window, document } from 'ssr-window';
 
 const Support = (function Support() {
-  const positionSticky = (function supportPositionSticky() {
-    let support = false;
-    const div = document.createElement('div');
-    ('sticky -webkit-sticky -moz-sticky').split(' ').forEach((prop) => {
-      if (support) return;
-      div.style.position = prop;
-      if (div.style.position === prop) {
-        support = true;
-      }
-    });
-    return support;
-  }());
-
   const testDiv = document.createElement('div');
 
   return {
-    positionSticky,
     touch: (function checkTouch() {
-      return !!(('ontouchstart' in window) || (window.DocumentTouch && document instanceof window.DocumentTouch));
+      return !!((window.navigator.maxTouchPoints > 0) || ('ontouchstart' in window) || (window.DocumentTouch && document instanceof window.DocumentTouch));
     }()),
 
-    pointerEvents: !!(window.navigator.pointerEnabled || window.PointerEvent || ('maxTouchPoints' in window.navigator)),
+    pointerEvents: !!(window.navigator.pointerEnabled || window.PointerEvent || ('maxTouchPoints' in window.navigator && window.navigator.maxTouchPoints > 0)),
     prefixedPointerEvents: !!window.navigator.msPointerEnabled,
 
     transition: (function checkTransition() {
@@ -65,6 +51,10 @@ const Support = (function Support() {
 
     gestures: (function checkGestures() {
       return 'ongesturestart' in window;
+    }()),
+
+    intersectionObserver: (function checkObserver() {
+      return ('IntersectionObserver' in window);
     }()),
   };
 }());

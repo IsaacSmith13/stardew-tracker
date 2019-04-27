@@ -1,4 +1,3 @@
-/* eslint no-underscore-dangle: ["error", { "allow": ["_clientLeft"] }] */
 import $ from 'dom7';
 import Utils from '../../utils/utils';
 
@@ -19,6 +18,13 @@ const Accordion = {
   open(el) {
     const app = this;
     const $el = $(el);
+    let prevented = false;
+    function prevent() {
+      prevented = true;
+    }
+    $el.trigger('accordion:beforeopen', { prevent }, prevent);
+    app.emit('accordionBeforeOpen', $el[0], prevent);
+    if (prevented) return;
     const $list = $el.parents('.accordion-list').eq(0);
     let $contentEl = $el.children('.accordion-item-content');
     $contentEl.removeAttr('aria-hidden');
@@ -51,6 +57,13 @@ const Accordion = {
   close(el) {
     const app = this;
     const $el = $(el);
+    let prevented = false;
+    function prevent() {
+      prevented = true;
+    }
+    $el.trigger('accordion:beforeclose', { prevent }, prevent);
+    app.emit('accordionBeforeClose', $el[0], prevent);
+    if (prevented) return;
     let $contentEl = $el.children('.accordion-item-content');
     if ($contentEl.length === 0) $contentEl = $el.find('.accordion-item-content');
     $el.removeClass('accordion-item-opened');

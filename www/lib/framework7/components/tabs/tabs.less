@@ -23,7 +23,7 @@
     }
   }
   &.not-animated > .tabs {
-    transition-duration: 300ms;
+    transition-duration: 0ms;
   }
 }
 .tabs-swipeable-wrap {
@@ -39,9 +39,12 @@
   height: 100%;
 }
 
-& when (@includeIosTheme) {
+.if-ios-theme({
   @import url('./tabs-ios.less');
-}
-& when (@includeMdTheme) {
+});
+.if-md-theme({
   @import url('./tabs-md.less');
-}
+});
+.if-aurora-theme({
+  @import url('./tabs-aurora.less');
+});

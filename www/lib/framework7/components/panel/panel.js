@@ -29,6 +29,49 @@ export default {
   create() {
     const app = this;
     Utils.extend(app.panel, {
+      disableResizable(panel = 'both') {
+        let side;
+        let panels = [];
+        if (typeof panel === 'string') {
+          if (panel === 'both') {
+            side = 'both';
+            panels = [app.panel.left, app.panel.right];
+          } else {
+            side = panel;
+            panels.push(app.panel[side]);
+          }
+        } else {
+          panels = [panel];
+        }
+        panels.forEach((panelInstance) => {
+          panelInstance.resizable = false;
+          panelInstance.$el.removeClass('panel-resizable');
+        });
+      },
+      enableResizable(panel = 'both') {
+        let side;
+        let panels = [];
+        if (typeof panel === 'string') {
+          if (panel === 'both') {
+            side = 'both';
+            panels = [app.panel.left, app.panel.right];
+          } else {
+            side = panel;
+            panels.push(app.panel[side]);
+          }
+        } else {
+          panels = [panel];
+        }
+        panels.forEach((panelInstance) => {
+          if (!panelInstance) return;
+          if (!panelInstance.resizableInitialized) {
+            panelInstance.initResizablePanel();
+          } else {
+            panelInstance.resizable = true;
+            panelInstance.$el.addClass('panel-resizable');
+          }
+        });
+      },
       disableSwipe(panel = 'both') {
         let side;
         let panels = [];
@@ -44,7 +87,7 @@ export default {
           panels = [panel];
         }
         panels.forEach((panelInstance) => {
-          if (panelInstance) Utils.extend(panelInstance, { swipeable: false });
+          panelInstance.swipeable = false;
         });
       },
       enableSwipe(panel = 'both') {
@@ -67,16 +110,14 @@ export default {
         } else if (panel) {
           panels.push(panel);
         }
-        if (panels.length) {
-          panels.forEach((panelInstance) => {
-            if (!panelInstance) return;
-            if (!panelInstance.swipeInitialized) {
-              panelInstance.initSwipePanel();
-            } else {
-              Utils.extend(panelInstance, { swipeable: true });
-            }
-          });
-        }
+        panels.forEach((panelInstance) => {
+          if (!panelInstance) return;
+          if (!panelInstance.swipeInitialized) {
+            panelInstance.initSwipePanel();
+          } else {
+            panelInstance.swipeable = true;
+          }
+        });
       },
       create(params) {
         return new Panel(app, params);
@@ -115,6 +156,31 @@ export default {
         }
         if ($panelEl.length > 0) {
           return app.panel.create({ el: $panelEl }).close(animate);
+        }
+        return false;
+      },
+      toggle(side, animate) {
+        let $panelEl;
+        let panelSide = side;
+        if (side) {
+          panelSide = side;
+          $panelEl = $(`.panel-${panelSide}`);
+        } else if ($('.panel.panel-active').length) {
+          $panelEl = $('.panel.panel-active');
+          panelSide = $panelEl.hasClass('panel-left') ? 'left' : 'right';
+        } else {
+          if ($('.panel').length > 1) {
+            return false;
+          }
+          panelSide = $('.panel').hasClass('panel-left') ? 'left' : 'right';
+          $panelEl = $(`.panel-${panelSide}`);
+        }
+        if (!panelSide) return false;
+        if (app.panel[panelSide]) {
+          return app.panel[panelSide].toggle(animate);
+        }
+        if ($panelEl.length > 0) {
+          return app.panel.create({ el: $panelEl }).toggle(animate);
         }
         return false;
       },
@@ -162,6 +228,11 @@ export default {
       const app = this;
       const side = data.panel;
       app.panel.close(side, data.animate);
+    },
+    '.panel-toggle': function close(clickedEl, data = {}) {
+      const app = this;
+      const side = data.panel;
+      app.panel.toggle(side, data.animate);
     },
     '.panel-backdrop': function close() {
       const app = this;

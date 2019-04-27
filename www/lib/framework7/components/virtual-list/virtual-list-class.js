@@ -1,6 +1,5 @@
 import { document } from 'ssr-window';
 import $ from 'dom7';
-import Template7 from 'template7';
 import Utils from '../../utils/utils';
 import Framework7Class from '../../utils/class';
 import Device from '../../utils/device';
@@ -10,9 +9,18 @@ class VirtualList extends Framework7Class {
     super(params, [app]);
     const vl = this;
 
+    let defaultHeight;
+    if (app.theme === 'md') {
+      defaultHeight = 48;
+    } else if (app.theme === 'ios') {
+      defaultHeight = 44;
+    } else if (app.theme === 'aurora') {
+      defaultHeight = 38;
+    }
+
     const defaults = {
       cols: 1,
-      height: app.theme === 'md' ? 48 : 44,
+      height: defaultHeight,
       cache: true,
       dynamicHeightBufferSize: 1,
       showFilteredItemsOnly: false,
@@ -42,7 +50,7 @@ class VirtualList extends Framework7Class {
 
     vl.params = Utils.extend(defaults, params);
     if (vl.params.height === undefined || !vl.params.height) {
-      vl.params.height = app.theme === 'md' ? 48 : 44;
+      vl.params.height = defaultHeight;
     }
 
     vl.$el = $(params.el);
@@ -56,7 +64,7 @@ class VirtualList extends Framework7Class {
       vl.filteredItems = [];
     }
     if (vl.params.itemTemplate) {
-      if (typeof vl.params.itemTemplate === 'string') vl.renderItem = Template7.compile(vl.params.itemTemplate);
+      if (typeof vl.params.itemTemplate === 'string') vl.renderItem = app.t7.compile(vl.params.itemTemplate);
       else if (typeof vl.params.itemTemplate === 'function') vl.renderItem = vl.params.itemTemplate;
     } else if (vl.params.renderItem) {
       vl.renderItem = vl.params.renderItem;
