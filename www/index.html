@@ -2,31 +2,20 @@
 <html>
 
 <head>
-    <!-- Required meta tags-->
     <meta charset="utf-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
-    <!-- Color theme for statusbar -->
     <meta name="theme-color" content="#316606">
-    <!-- Your app title -->
     <title>stardew-tracker</title>
-    <!-- Path to Framework7 Library CSS -->
     <link rel="stylesheet" href="lib/framework7/css/framework7.bundle.min.css">
-
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <div id="app">
-        <!-- Statusbar overlay -->
         <div class="statusbar"></div>
-
-        <!-- Your main view, should have "view-main" class -->
         <div class="view view-main">
-            <!-- Initial Page, "data-name" contains page name -->
             <div data-name="home" class="page">
-
-                <!-- Top Navbar -->
                 <div class="navbar" id="navbar">
                     <div class="navbar-inner justify-content-center">
                         <div class="title">Community Center Tracker</div>
@@ -53,8 +42,6 @@
                 </div>
                 <div class="page-content">
                     <div class="tabs">
-                        <!-- First tab, should have "tab" class and unique id attribute -->
-                        <!-- First tab is active by default - additional "tab-active" class -->
                         <div class="tab tab-active" id="spring">
                             <div class="list">
                                 <h3 class="text-align-center"><strong>Farming:</strong></h3>
@@ -62,7 +49,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- Second tab, should have "tab" class and unique id attribute -->
                         <div class="tab" id="summer">
                             <div class="list">
                                 <h3 class="text-align-center"><strong>Farming:</strong></h3>
@@ -70,7 +56,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- Third tab, should have "tab" class and unique id attribute -->
                         <div class="tab" id="fall">
                             <div class="list">
                                 <h3 class="text-align-center"><strong>Farming:</strong></h3>
@@ -95,9 +80,7 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.bundle.min.js"></script>
