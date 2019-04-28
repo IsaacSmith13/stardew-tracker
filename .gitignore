@@ -10,6 +10,7 @@ npm-debug.log
 /plugins
 /hooks
 /.cordova
+/build
 
 # res
 resources/signing
