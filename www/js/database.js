@@ -83,7 +83,6 @@ database.forEach(function (item) {
     count++
 });
 
-
 // If user doesn't yet have a save file
 if (localStorage.getItem("save") === null) {
     console.log("null save");
@@ -142,7 +141,7 @@ function populate(season, listId) {
                         </div>
                         <div class="item-after">
                             <label class="checkbox">
-                                <input id="item${item.formattedName}" type="checkbox" ${saveFile[item.formattedName]}>
+                                <input class="item${item.formattedName}" type="checkbox" ${saveFile[item.formattedName]}>
                                 <i class="icon-checkbox"></i>
                             </label>
                         </div>
@@ -167,10 +166,18 @@ populate("any", "anyList");
 
 // Add click listeners to checkboxes to update user save file
 const checkboxes = document.querySelectorAll("input[type='checkbox']");
+// Iterate through checkboxes
 checkboxes.forEach(function (checkbox) {
+    // Add a click listener
     checkbox.addEventListener("click", function () {
-        let checked = checkbox.id.slice(4);
-        saveFile[checked] = (saveFile[checked] === "" ? "checked" : "");
+        // Select all instances of this item from each tab
+        document.querySelectorAll("." + checkbox.className).forEach(function (item) {
+            // Make each instance have the same .checked property as the clicked one
+            item.checked = (checkbox.checked === true ? true : false)
+        });
+        // Save the checked property in localStorage
+        let check = checkbox.className.slice(4);
+        saveFile[check] = (saveFile[check] === "" ? "checked" : "");
         localStorage.setItem("save", JSON.stringify(saveFile));
     });
 });
