@@ -330,6 +330,9 @@ class Calendar extends Framework7Class {
       if (app.width >= 768) {
         return true;
       }
+      if (app.device.desktop && app.theme === 'aurora') {
+        return true;
+      }
     }
     return false;
   }
@@ -405,6 +408,14 @@ class Calendar extends Framework7Class {
 
   setValue(values) {
     const calendar = this;
+    const currentValue = calendar.value;
+    if (Array.isArray(currentValue) && Array.isArray(values) && currentValue.length === values.length) {
+      let equal = true;
+      currentValue.forEach((v, index) => {
+        if (v !== values[index]) equal = false;
+      });
+      if (equal) return;
+    }
     calendar.value = values;
     calendar.updateValue();
   }
@@ -1016,63 +1027,44 @@ class Calendar extends Framework7Class {
     }
     return `
     <div class="calendar-week-header">
-    ${weekDaysHtml}
+      ${weekDaysHtml}
     </div>
   `.trim();
   }
 
   renderMonthSelector() {
     const calendar = this;
-    const app = calendar.app;
     if (calendar.params.renderMonthSelector) {
       return calendar.params.renderMonthSelector.call(calendar);
     }
 
-    let needsBlackIcon;
-    if (calendar.inline && calendar.$containerEl.closest('.theme-dark').length === 0) {
-      needsBlackIcon = true;
-    } else if (app.root.closest('.theme-dark').length === 0) {
-      needsBlackIcon = true;
-    }
-
-    const iconColor = app.theme === 'md' && needsBlackIcon ? 'color-black' : '';
     return `
     <div class="calendar-month-selector">
-    <a href="#" class="link icon-only calendar-prev-month-button">
-      <i class="icon icon-prev ${iconColor}"></i>
-    </a>
-    <span class="current-month-value"></span>
-    <a href="#" class="link icon-only calendar-next-month-button">
-      <i class="icon icon-next ${iconColor}"></i>
-    </a>
+      <a href="#" class="link icon-only calendar-prev-month-button">
+        <i class="icon icon-prev"></i>
+      </a>
+      <span class="current-month-value"></span>
+      <a href="#" class="link icon-only calendar-next-month-button">
+        <i class="icon icon-next"></i>
+      </a>
     </div>
   `.trim();
   }
 
   renderYearSelector() {
     const calendar = this;
-    const app = calendar.app;
     if (calendar.params.renderYearSelector) {
       return calendar.params.renderYearSelector.call(calendar);
     }
-
-    let needsBlackIcon;
-    if (calendar.inline && calendar.$containerEl.closest('.theme-dark').length === 0) {
-      needsBlackIcon = true;
-    } else if (app.root.closest('.theme-dark').length === 0) {
-      needsBlackIcon = true;
-    }
-
-    const iconColor = app.theme === 'md' && needsBlackIcon ? 'color-black' : '';
     return `
     <div class="calendar-year-selector">
-    <a href="#" class="link icon-only calendar-prev-year-button">
-      <i class="icon icon-prev ${iconColor}"></i>
-    </a>
-    <span class="current-year-value"></span>
-    <a href="#" class="link icon-only calendar-next-year-button">
-      <i class="icon icon-next ${iconColor}"></i>
-    </a>
+      <a href="#" class="link icon-only calendar-prev-year-button">
+        <i class="icon icon-prev"></i>
+      </a>
+      <span class="current-year-value"></span>
+      <a href="#" class="link icon-only calendar-next-year-button">
+        <i class="icon icon-next"></i>
+      </a>
     </div>
   `.trim();
   }
@@ -1084,7 +1076,7 @@ class Calendar extends Framework7Class {
     }
     return `
     <div class="calendar-header">
-    <div class="calendar-selected-date">${calendar.params.headerPlaceholder}</div>
+      <div class="calendar-selected-date">${calendar.params.headerPlaceholder}</div>
     </div>
   `.trim();
   }
@@ -1097,7 +1089,7 @@ class Calendar extends Framework7Class {
     }
     return `
     <div class="calendar-footer">
-    <a href="#" class="${app.theme === 'md' ? 'button' : 'link'} calendar-close sheet-close popover-close">${calendar.params.toolbarCloseText}</a>
+      <a href="#" class="${app.theme === 'md' ? 'button' : 'link'} calendar-close sheet-close popover-close">${calendar.params.toolbarCloseText}</a>
     </div>
   `.trim();
   }
@@ -1108,11 +1100,11 @@ class Calendar extends Framework7Class {
       return calendar.params.renderToolbar.call(calendar, calendar);
     }
     return `
-    <div class="toolbar no-shadow">
-    <div class="toolbar-inner">
-      ${calendar.renderMonthSelector()}
-      ${calendar.renderYearSelector()}
-    </div>
+    <div class="toolbar toolbar-top no-shadow">
+      <div class="toolbar-inner">
+        ${calendar.params.monthSelector ? calendar.renderMonthSelector() : ''}
+        ${calendar.params.yearSelector ? calendar.renderYearSelector() : ''}
+      </div>
     </div>
   `.trim();
   }
@@ -1124,13 +1116,13 @@ class Calendar extends Framework7Class {
     const date = value && value.length ? value[0] : new calendar.DateHandleClass().setHours(0, 0, 0);
     const inlineHtml = `
     <div class="calendar calendar-inline ${rangePicker ? 'calendar-range' : ''} ${cssClass || ''}">
-    ${header ? calendar.renderHeader() : ''}
-    ${toolbar ? calendar.renderToolbar() : ''}
-    ${weekHeader ? calendar.renderWeekHeader() : ''}
-    <div class="calendar-months">
-      ${calendar.renderMonths(date)}
-    </div>
-    ${footer ? calendar.renderFooter() : ''}
+      ${header ? calendar.renderHeader() : ''}
+      ${toolbar ? calendar.renderToolbar() : ''}
+      ${weekHeader ? calendar.renderWeekHeader() : ''}
+      <div class="calendar-months">
+        ${calendar.renderMonths(date)}
+      </div>
+      ${footer ? calendar.renderFooter() : ''}
     </div>
   `.trim();
 
@@ -1144,13 +1136,13 @@ class Calendar extends Framework7Class {
     const date = value && value.length ? value[0] : new calendar.DateHandleClass().setHours(0, 0, 0);
     const sheetHtml = `
     <div class="calendar calendar-modal ${rangePicker ? 'calendar-range' : ''} ${cssClass || ''}">
-    ${header ? calendar.renderHeader() : ''}
-    ${toolbar ? calendar.renderToolbar() : ''}
-    ${weekHeader ? calendar.renderWeekHeader() : ''}
-    <div class="calendar-months">
-      ${calendar.renderMonths(date)}
-    </div>
-    ${footer ? calendar.renderFooter() : ''}
+      ${header ? calendar.renderHeader() : ''}
+      ${toolbar ? calendar.renderToolbar() : ''}
+      ${weekHeader ? calendar.renderWeekHeader() : ''}
+      <div class="calendar-months">
+        ${calendar.renderMonths(date)}
+      </div>
+      ${footer ? calendar.renderFooter() : ''}
     </div>
   `.trim();
 
@@ -1164,13 +1156,13 @@ class Calendar extends Framework7Class {
     const date = value && value.length ? value[0] : new calendar.DateHandleClass().setHours(0, 0, 0);
     const sheetHtml = `
     <div class="sheet-modal calendar calendar-sheet ${rangePicker ? 'calendar-range' : ''} ${cssClass || ''}">
-    ${header ? calendar.renderHeader() : ''}
-    ${toolbar ? calendar.renderToolbar() : ''}
-    ${weekHeader ? calendar.renderWeekHeader() : ''}
-    <div class="sheet-modal-inner calendar-months">
-      ${calendar.renderMonths(date)}
-    </div>
-    ${footer ? calendar.renderFooter() : ''}
+      ${header ? calendar.renderHeader() : ''}
+      ${toolbar ? calendar.renderToolbar() : ''}
+      ${weekHeader ? calendar.renderWeekHeader() : ''}
+      <div class="sheet-modal-inner calendar-months">
+        ${calendar.renderMonths(date)}
+      </div>
+      ${footer ? calendar.renderFooter() : ''}
     </div>
   `.trim();
 
@@ -1184,17 +1176,17 @@ class Calendar extends Framework7Class {
     const date = value && value.length ? value[0] : new calendar.DateHandleClass().setHours(0, 0, 0);
     const popoverHtml = `
     <div class="popover calendar-popover">
-    <div class="popover-inner">
-      <div class="calendar ${rangePicker ? 'calendar-range' : ''} ${cssClass || ''}">
-      ${header ? calendar.renderHeader() : ''}
-      ${toolbar ? calendar.renderToolbar() : ''}
-      ${weekHeader ? calendar.renderWeekHeader() : ''}
-      <div class="calendar-months">
-        ${calendar.renderMonths(date)}
+      <div class="popover-inner">
+        <div class="calendar ${rangePicker ? 'calendar-range' : ''} ${cssClass || ''}">
+        ${header ? calendar.renderHeader() : ''}
+        ${toolbar ? calendar.renderToolbar() : ''}
+        ${weekHeader ? calendar.renderWeekHeader() : ''}
+        <div class="calendar-months">
+          ${calendar.renderMonths(date)}
+        </div>
+        ${footer ? calendar.renderFooter() : ''}
+        </div>
       </div>
-      ${footer ? calendar.renderFooter() : ''}
-      </div>
-    </div>
     </div>
   `.trim();
 
@@ -1252,7 +1244,7 @@ class Calendar extends Framework7Class {
     }
 
     // Extra focus
-    if (!inline && $inputEl.length && app.theme === 'md') {
+    if (!inline && $inputEl && $inputEl.length && app.theme === 'md') {
       $inputEl.trigger('focus');
     }
 

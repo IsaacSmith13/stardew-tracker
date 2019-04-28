@@ -125,7 +125,11 @@ class Picker extends Framework7Class {
       if (params.openIn === 'popover') return true;
       if (app.device.ios) {
         return !!app.device.ipad;
-      } if (app.width >= 768) {
+      }
+      if (app.width >= 768) {
+        return true;
+      }
+      if (app.device.desktop && app.theme === 'aurora') {
         return true;
       }
     }
@@ -216,7 +220,7 @@ class Picker extends Framework7Class {
     const picker = this;
     if (picker.params.renderToolbar) return picker.params.renderToolbar.call(picker, picker);
     return `
-      <div class="toolbar no-shadow">
+      <div class="toolbar toolbar-top no-shadow">
         <div class="toolbar-inner">
           <div class="left"></div>
           <div class="right">
@@ -347,7 +351,7 @@ class Picker extends Framework7Class {
     }
 
     // Extra focus
-    if (!inline && $inputEl.length && app.theme === 'md') {
+    if (!inline && $inputEl && $inputEl.length && app.theme === 'md') {
       $inputEl.trigger('focus');
     }
 

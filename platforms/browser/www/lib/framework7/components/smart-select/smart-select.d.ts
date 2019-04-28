@@ -41,6 +41,8 @@ export namespace SmartSelect {
     searchbarPlaceholder?: string
     /** Searchbar "cancel" link text. Has effect only in iOS theme (default 'Cancel') */
     searchbarDisableText?: string
+    /** Enables searchbar disable button. By default, disabled for Aurora theme */
+    searchbarDisableButton?: boolean
     /** Appends block with content that displayed when there are no Searchbar results (default false) */
     appendSearchbarNotFound?: boolean | string | HTMLElement
     /** If enabled then smart select will be automatically closed after user selectes any option (default false) */
@@ -49,6 +51,8 @@ export namespace SmartSelect {
     virtualList?: boolean
     /** Virtual list item height. If number - list item height in px. If function then function should return item height */
     virtualListHeight?: number | Function
+    /** When enabled it will scroll smart select content to first selected item on open (default false) */
+    scrollToSelectedItem?: boolean
     /** Smart select page form color theme. One of the default colors */
     formColorTheme?: string
     /** Smart select navbar color theme. One of the default colors */
@@ -102,6 +106,12 @@ export namespace SmartSelect {
     /** Smart Select parameters */
     params : Parameters
 
+    /** Scroll smart select content to first selected item */
+    scrollToSelectedItem(): SmartSelect
+    /** Set new smart select value. In case of select is multiple it must be an array with new values */
+    setValue(value: string | number | any[]): SmartSelect
+    /** Returns smart select value. In case of select is multiple it returns array with selected values */
+    getValue(): string | number | any[]
     /** Open smart select. */
     open() : SmartSelect
     /** Close smart select. */

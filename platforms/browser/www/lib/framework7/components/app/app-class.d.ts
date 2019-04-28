@@ -56,6 +56,8 @@ export interface Framework7Params {
   data? : () => any
   /** App root methods. Object with methods.  Note, that this inside of each method points to app Framework7 instance.. (default {}) */
   methods? : { [name : string] : () => any }
+  /** Enables auto dark theme */
+  autoDarkTheme: boolean
   /** Lazy modules path */
   lazyModulesPath?: string
   /** By default Framework7 will be initialized automatically when you call new Framework7(). If you want to prevent this behavior you can disable it with this option and then initialize it manually with init() when you need it.. (default true) */
@@ -141,6 +143,10 @@ interface Framework7 extends Framework7Class<Framework7Events> {
   t7 : Template7
   /** App parameters */
   params : Framework7Params
+  /** Enables auto dark theme detection */
+  enableAutoDarkTheme() : void
+  /** Disables auto dark theme detection */
+  disableAutoDarkTheme() : void
   /** Initialize app. In case you disabled auto initialization with init: false parameter */
   init() : void
   /** Load module */
@@ -148,15 +154,18 @@ interface Framework7 extends Framework7Class<Framework7Events> {
   /** Load modules */
   loadModules(modules: any[]) : Promise<any>
 }
+interface Events extends Framework7EventsClass<Framework7Events> {}
 
 declare class Framework7 implements Framework7 {
   constructor(parameters?: Framework7Params);
 
   static use(plugin : Framework7Plugin) : void;
+  static use(plugins : Framework7Plugin[]) : void;
   static device: Device;
   static request: Request;
   static support: Support;
   static utils: Utils;
+  static Events: Events;
 }
 
 export default Framework7;

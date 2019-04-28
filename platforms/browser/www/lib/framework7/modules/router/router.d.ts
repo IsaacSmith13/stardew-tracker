@@ -13,9 +13,9 @@ export namespace Router {
     /** Component CSS styles. Styles will be added to the document after component will be mounted (added to DOM), and removed after component will be destroyed (removed from the DOM) */
     style? : string
     /** Object with additional component methods which extend component context */
-    methods? : { [name : string] : () => any }
+    methods? : { [name : string] : (...args: any) => any }
     /** Object with page events handlers */
-    on? : { [event : string] : () => void }
+    on? : { [event : string] : (e: Event, page: any) => void }
 
     /** Called synchronously immediately after the component has been initialized, before data and event/watcher setup. */
     beforeCreate? : () => void
@@ -87,6 +87,12 @@ export namespace Router {
     beforeEnter?: Function[] | ((routeTo: Route, routeFrom: Route, resolve: Function, reject: Function) => void)
     /** Function (or array of functions) that will be executed before route unload/leave. To proceed navigation resolve must be called. In case of array then every function in array must be resolved to proceed */
     beforeLeave?: Function[] | ((routeTo: Route, routeFrom: Route, resolve: Function, reject: Function) => void)
+    /** When enabled then once loaded page and its component (Vue, React or Router component) will be never destroyed. Instead, it will be detached from DOM and reused again when required */
+    keepAlive?: boolean
+    /** Enables master route for Master-Detail view */
+    master?: boolean
+    /** Detail routes this master route */
+    detailRoutes?: RouteParameters[]
   }
   interface RouteOptions {
     /** whether the page should be animated or not (overwrites default router settings) */
@@ -200,6 +206,8 @@ export namespace Router {
     back(url?: string, options?: RouteOptions): Router
     /** Refresh/reload current page */
     refreshPage(): Router
+    /** Remove all previous pages from DOM */
+    clearPreviousPages(): Router
     /** Clear router previous pages history and remove all previous pages from DOM */
     clearPreviousHistory(): Router
     /** Updates current route url, and updates `router.currentRoute` properties (query, params, hash, etc.) based on passed url. This method doesn't load or reload any content. It just changes current route url */
@@ -309,7 +317,8 @@ export namespace Router {
     }
   }
   interface AppParams {
-
+    /** Set to false to disable the router. */
+    router?: false
   }
   interface AppEvents {
 

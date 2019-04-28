@@ -1,4 +1,6 @@
 /* === Swipeout === */
+@import url('./swipeout-vars.less');
+
 .swipeout {
   overflow: hidden;
   transform-style: preserve-3d;
@@ -23,21 +25,26 @@
   transition-duration: 200ms;
   transition-property: left;
 }
-.swipeout-actions-left, .swipeout-actions-right {
+.swipeout-actions-left,
+.swipeout-actions-right {
   position: absolute;
   top: 0;
   height: 100%;
   display: flex;
   direction: ltr;
   > a, > button, > span, > div {
-    color: #fff;
-    background: #c7c7cc;
+    color: var(--f7-swipeout-button-text-color);
+    background: var(--f7-swipeout-button-bg-color);
+    padding: var(--f7-swipeout-button-padding);
     display: flex;
     align-items: center;
     position: relative;
     left: 0;
+    font-size: var(--f7-swipeout-button-font-size);
+    font-weight: var(--f7-swipeout-button-font-weight);
     &:after {
       content: '';
+      pointer-events: none;
       position: absolute;
       top: 0;
       width: 600%;
@@ -47,6 +54,9 @@
       transform: translate3d(0,0,0);
       pointer-events: none;
     }
+  }
+  .swipeout-delete {
+    background: var(--f7-swipeout-delete-button-bg-color);
   }
 }
 .swipeout-actions-right {
@@ -69,9 +79,17 @@
     }
   }
 }
-& when (@includeIosTheme) {
+.swipeout-actions-left, .swipeout-actions-right {
+  [class*="color-"] {
+    --f7-swipeout-button-bg-color: var(--f7-theme-color);
+  }
+}
+.if-ios-theme({
   @import url('./swipeout-ios.less');
-}
-& when (@includeMdTheme) {
+});
+.if-md-theme({
   @import url('./swipeout-md.less');
-}
+});
+.if-aurora-theme({
+  @import url('./swipeout-aurora.less');
+});

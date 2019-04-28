@@ -1,13 +1,13 @@
 /**
- * Framework7 3.5.2
+ * Framework7 4.3.0
  * Full featured mobile HTML framework for building iOS & Android apps
  * http://framework7.io/
  *
- * Copyright 2014-2018 Vladimir Kharlampidi
+ * Copyright 2014-2019 Vladimir Kharlampidi
  *
  * Released under the MIT License
  *
- * Released on: November 12, 2018
+ * Released on: April 17, 2019
  */
 
 import Template7 from 'template7';
@@ -31,9 +31,12 @@ import RequestModule from './modules/request/request';
 import TouchModule from './modules/touch/touch';
 import ClicksModule from './modules/clicks/clicks';
 import RouterModule from './modules/router/router';
+import RouterTemplateLoaderModule from './modules/router/template-loader';
+import RouterComponentLoaderModule from './modules/router/component-loader';
 import HistoryModule from './modules/history/history';
 import StorageModule from './modules/storage/storage';
 import ComponentModule from './modules/component/component';
+import ServiceWorkerModule from './modules/service-worker/service-worker';
 
 // Core Components
 import Statusbar from './components/statusbar/statusbar';
@@ -43,7 +46,9 @@ import Toolbar from './components/toolbar/toolbar';
 import Subnavbar from './components/subnavbar/subnavbar';
 import TouchRipple from './components/touch-ripple/touch-ripple';
 import Modal from './components/modal/modal';
+import Router from './modules/router/router-class';
 
+import Appbar from './components/appbar/appbar';
 import Dialog from './components/dialog/dialog';
 import Popup from './components/popup/popup';
 import LoginScreen from './components/login-screen/login-screen';
@@ -89,6 +94,9 @@ import Notification from './components/notification/notification';
 import Autocomplete from './components/autocomplete/autocomplete';
 import Tooltip from './components/tooltip/tooltip';
 import Gauge from './components/gauge/gauge';
+import Skeleton from './components/skeleton/skeleton';
+import Menu from './components/menu/menu';
+import ColorPicker from './components/color-picker/color-picker';
 import Vi from './components/vi/vi';
 import Elevation from './components/elevation/elevation';
 import Typography from './components/typography/typography';
@@ -104,6 +112,11 @@ if ("es" !== 'es') {
 }
 
 // Install Core Modules & Components
+Router.use([
+  RouterTemplateLoaderModule,
+  RouterComponentLoaderModule,
+]);
+
 Framework7.use([
   DeviceModule,
   SupportModule,
@@ -116,6 +129,7 @@ Framework7.use([
   HistoryModule,
   StorageModule,
   ComponentModule,
+  ServiceWorkerModule,
   Statusbar,
   View,
   Navbar,
@@ -123,6 +137,7 @@ Framework7.use([
   Subnavbar,
   TouchRipple,
   Modal,
+  Appbar,
   Dialog,
   Popup,
   LoginScreen,
@@ -168,6 +183,9 @@ Framework7.use([
   Autocomplete,
   Tooltip,
   Gauge,
+  Skeleton,
+  Menu,
+  ColorPicker,
   Vi,
   Elevation,
   Typography
