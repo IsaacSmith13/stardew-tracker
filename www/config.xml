@@ -19,6 +19,7 @@
         <allow-intent href="market:*" />
     </platform>
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="Orientation" value="portrait" />
     <platform name="android">
         <icon src="img/icon/icon.png" width="1024" height="1024" />
     </platform>
