@@ -31,3 +31,23 @@
 .checkbox input[type=checkbox]:checked~i:after {
     opacity: 0;
 }
+.item-media {
+    margin-right: auto;
+    margin-left: 5%;
+}
+.item-after {
+    margin-left: auto;
+    margin-right: 3%;
+}
+.item-title {
+    width: 65%;
+}
+.button-name {
+    border: .2em solid #007aff;
+    background-color: transparent;
+    border-radius: .4em;
+    font-size: inherit;
+    font-family: inherit;
+    padding: .8em;
+    width: 100%
+}

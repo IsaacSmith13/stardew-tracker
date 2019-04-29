@@ -1,18 +1,6 @@
 // Database of all items
 let database = [
     {
-        name: "Blueberry",
-        desc: "Seeds at Pierre's Shop",
-        season: ["summer"],
-        type: "farming"
-    },
-    {
-        name: "Hot Pepper",
-        desc: "Seeds at Pierre's Shop",
-        season: ["summer"],
-        type: "farming"
-    },
-    {
         name: "Parsnip",
         desc: "Seeds at Pierre's Shop",
         season: ["spring"],
@@ -49,6 +37,18 @@ let database = [
         type: "farming"
     },
     {
+        name: "Blueberry",
+        desc: "Seeds at Pierre's Shop",
+        season: ["summer"],
+        type: "farming"
+    },
+    {
+        name: "Hot Pepper",
+        desc: "Seeds at Pierre's Shop",
+        season: ["summer"],
+        type: "farming"
+    },
+    {
         name: "Corn",
         desc: "Seeds at Pierre's Shop",
         season: ["summer", "fall"],
@@ -74,12 +74,11 @@ let database = [
     }
 ];
 
-// Add images, formatted names, and ID's to items systematically
+// Add formatted names and images to items systematically
 database.forEach(function (item) {
     let count = 0;
-    item.img = `img/items/${item.name.split(" ").join("")}.png`;
     item.formattedName = item.name.split(" ").join("");
-    item._id = ("0" + count).slice(-2);
+    item.img = `img/items/${item.formattedName}.png`;
     count++
 });
 
@@ -102,42 +101,21 @@ saveFile = JSON.parse(localStorage.getItem("save"));
 // also marking them as checked if applicable
 function populate(season, listId) {
     let count = 0;
-    let seasonContent = `
-        <li>
-            <div class="item-content desc no-padding-left">
-                <div class="item-inner">
-                    <div class="item-media padding-horizontal">
-                        <img src="img/items/Junimo.png" width="48" height="48">
-                        <i class="icon images"></i>
-                    </div>
-                    <div class="item-title padding-left">
-                        Name
-                    </div>
-                    <div class="item-after">
-                        Where to get
-                    </div>
-                    <div class="item-after">
-                    </div>
-                </div>
-            </div>
-        </li>
-    `
+    let seasonContent = ""
+
     // Iterates through all items and adding the correctly season-tagged ones
     database.forEach(function (item) {
         count++;
         if (item.season.includes(season)) {
             seasonContent += `
-            <li>
-                <div class="item-content no-padding-left">
+            <li class="">
+                <div class="item-content no-padding">
                     <div class="item-inner">
-                        <div class="item-media padding-horizontal">
+                        <div class="item-media">
                             <img src="${item.img}" width="48" height="48">
                         </div>
-                        <div class="item-title padding-left">
-                            ${item.name}
-                        </div>
-                        <div class="item-after">
-                            ${item.desc}
+                        <div class="item-title">
+                            <button class="button-name">${item.name}<i class="icon-down-open"></i></button>
                         </div>
                         <div class="item-after">
                             <label class="checkbox">
@@ -148,8 +126,7 @@ function populate(season, listId) {
                     </div>
                 </div>
             </li>
-            `
-        }
+        `}
     });
     // Assign generated content to the specified listId
     document.getElementById(listId).innerHTML = seasonContent;
