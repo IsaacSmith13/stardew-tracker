@@ -23,25 +23,25 @@
     font-size: inherit;
 }
 
-.desc {
-    color: #aeafb7;
-}
-
 /* fixing bug with framework7's checkbox */
 .checkbox input[type=checkbox]:checked~i:after {
     opacity: 0;
 }
+
 .item-media {
     margin-right: auto;
     margin-left: 5%;
 }
+
 .item-after {
     margin-left: auto;
     margin-right: 3%;
 }
+
 .item-title {
     width: 65%;
 }
+
 .button-name {
     border: .2em solid #007aff;
     background-color: transparent;
@@ -50,4 +50,30 @@
     font-family: inherit;
     padding: .8em;
     width: 100%
+}
+
+.hidden {
+    display: none;
+}
+
+.desc {
+    text-align: center;
+    padding: 1em;
+}
+
+/* Add underline to item descriptions */
+.tab .list ul li::before {
+    content: '';
+    position: absolute;
+    background-color: var(--f7-list-item-border-color);
+    display: block;
+    z-index: 15;
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    transform-origin: 50% 100%;
+    transform: scaleY(calc(1 / var(--f7-device-pixel-ratio)));
 }

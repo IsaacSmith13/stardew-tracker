@@ -108,22 +108,27 @@ function populate(season, listId) {
         count++;
         if (item.season.includes(season)) {
             seasonContent += `
-            <li class="">
+            <li class="shownLi">
                 <div class="item-content no-padding">
                     <div class="item-inner">
                         <div class="item-media">
                             <img src="${item.img}" width="48" height="48">
                         </div>
                         <div class="item-title">
-                            <button class="button-name">${item.name}<i class="icon-down-open"></i></button>
+                            <button class="button-name button${item.formattedName}">${item.name}<i class="icon-down-open"></i></button>
                         </div>
                         <div class="item-after">
                             <label class="checkbox">
-                                <input class="item${item.formattedName}" type="checkbox" ${saveFile[item.formattedName]}>
+                                <input class="check${item.formattedName}" type="checkbox" ${saveFile[item.formattedName]}>
                                 <i class="icon-checkbox"></i>
                             </label>
                         </div>
                     </div>
+                </div>
+            </li>
+            <li class="hidden">
+                <div class="desc">
+                    ${item.desc}
                 </div>
             </li>
         `}
@@ -153,8 +158,21 @@ checkboxes.forEach(function (checkbox) {
             item.checked = (checkbox.checked === true ? true : false)
         });
         // Save the checked property in localStorage
-        let check = checkbox.className.slice(4);
+        let check = checkbox.className.slice(5);
         saveFile[check] = (saveFile[check] === "" ? "checked" : "");
         localStorage.setItem("save", JSON.stringify(saveFile));
     });
+});
+
+// Add click listeners to name buttons to display/hide dropdown info
+const buttons = document.querySelectorAll(".button-name");
+// Iterate through buttons
+buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        let hiddenListClass = button.closest(".shownLi").nextElementSibling;
+        hiddenListClass.className = (hiddenListClass.className === "hidden" ? "" : "hidden");
+        let chevron = button.lastElementChild;
+        chevron.outerHTML = (chevron.outerHTML === `<i class="icon-down-open"></i>` ?
+            `<i class="icon-up-open"></i>` : `<i class="icon-down-open"></i>`);
+    })
 });
