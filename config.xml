@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.isaactsmith.stardewtracker" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Stardew Community Center Tracker</name>
+    <description>
+        Stardew Valley Community Center Tracker tracks all your community center items, so you don't have to! Items are sorted by season, as well as method of getting them. Each item tells you what season, time, and method are required to get it. As great as it would be to play Stardew 24/7, sometimes life  gets in the way and makes you take breaks, so the app saves your progress automatically for easy continuation.
+    </description>
+    <author email="isaac13smith@gmail.com" href="https://www.linkedin.com/in/isaac13smith/">
+        Isaac Smith
+    </author>
+    <content src="www/index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <icon src="www/img/icons/xxxhdpi.png" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <icon src="www/img/icons/ldpi.png" density="ldpi" />
+        <icon src="www/img/icons/mdpi.png" density="mdpi" />
+        <icon src="www/img/icons/hdpi.png" density="hdpi" />
+        <icon src="www/img/icons/xhdpi.png" density="xhdpi" />
+        <icon src="www/img/icons/xxhdpi.png" density="xxhdpi" />
+        <icon src="www/img/icons/xxxhdpi.png" density="xxxhdpi" />
+    </platform>
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="Orientation" value="portrait" />
+</widget>

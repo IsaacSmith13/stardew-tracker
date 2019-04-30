@@ -4,5 +4,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "displayName": "stardew-tracker"
+    "displayName": "stardew-tracker",
+    "dependencies": {
+        "cordova-android": "7.1.4"
+    }
 }
