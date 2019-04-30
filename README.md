@@ -7,7 +7,7 @@ The application has all of the community center items from the game Stardew Vall
 
 App Store Link
 --------------
-The app is available [on the Google Play store](placeholder).
+The app is available [on the Google Play store](https://play.google.com/store/apps/details?id=com.isaactsmith.stardewtracker).
 
 ![alt text](https://i.imgur.com/b1YAAdT.png "App preview")
 
@@ -20,7 +20,7 @@ Getting Started
 ---------------
 Download: 
 
-The app is available [on the Google Play store](placeholder).
+The app is available [on the Google Play store](https://play.google.com/store/apps/details?id=com.isaactsmith.stardewtracker).
 
 Source code:
 
