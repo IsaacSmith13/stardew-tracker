@@ -27,4 +27,5 @@
     </platform>
     <preference name="DisallowOverscroll" value="true" />
     <preference name="Orientation" value="portrait" />
+    <preference name="android-targetSdkVersion" value="26"/>
 </widget>
