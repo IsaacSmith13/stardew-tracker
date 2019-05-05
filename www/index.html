@@ -17,47 +17,93 @@
         <div class="statusbar"></div>
         <div class="view view-main">
             <div data-name="home" class="page">
-                <div class="navbar" id="navbar">
-                    <div class="navbar-inner justify-content-left margin-left">
-                        <a href="#bundles" class="button button-fill tab-link type">View by Bundle</a>
-                        <a href="#spring" class="button button-fill tab-link hidden type">View by Season</a>
+                <div class="tabs">
+                    <div class="tab tab-active" id="seasons">
+                        <div class="navbar" id="navbar">
+                            <div class="navbar-inner justify-content-left margin-left">
+                                <a href="#bundles" class="button button-fill tab-link type">Bundles</a>
+                            </div>
+                            <div class="navbar-inner justify-content-center">
+                                <div class="title">Stardew Tracker</div>
+                            </div>
+                        </div>
+                        <div class="toolbar tabbar toolbar-top">
+                            <div class="toolbar-inner">
+                                <a href="#spring" class="tab-link tab-link-active">
+                                    Spring
+                                </a>
+                                <a href="#summer" class="tab-link">
+                                    Summer
+                                </a>
+                                <a href="#fall" class="tab-link">
+                                    Fall
+                                </a>
+                                <a href="#winter" class="tab-link">
+                                    Winter
+                                </a>
+                                <a href="#any" class="tab-link">
+                                    Any
+                                </a>
+                            </div>
+                        </div>
+                        <div class="page-content">
+                            <div class="tabs">
+                                <div class="tab tab-active" id="spring">
+                                </div>
+                                <div class="tab" id="summer">
+                                </div>
+                                <div class="tab" id="fall">
+                                </div>
+                                <div class="tab" id="winter">
+                                </div>
+                                <div class="tab" id="any">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="navbar-inner justify-content-center">
-                        <div class="title">Stardew Tracker</div>
-                    </div>
-                </div>
-                <div class="toolbar tabbar toolbar-top">
-                    <div class="toolbar-inner">
-                        <a href="#spring" class="tab-link tab-link-active">
-                            Spring
-                        </a>
-                        <a href="#summer" class="tab-link">
-                            Summer
-                        </a>
-                        <a href="#fall" class="tab-link">
-                            Fall
-                        </a>
-                        <a href="#winter" class="tab-link">
-                            Winter
-                        </a>
-                        <a href="#any" class="tab-link">
-                            Any
-                        </a>
-                    </div>
-                </div>
-                <div class="page-content">
-                    <div class="tabs">
-                        <div class="tab tab-active" id="spring">
+                    <div class="tab" id="bundles">
+                        <div class="navbar" id="navbar">
+                            <div class="navbar-inner justify-content-left margin-left">
+                                <a href="#seasons" class="button button-fill tab-link type">Seasons</a>
+                            </div>
+                            <div class="navbar-inner justify-content-center">
+                                <div class="title">Stardew Tracker</div>
+                            </div>
                         </div>
-                        <div class="tab" id="summer">
+                        <div class="toolbar tabbar toolbar-top">
+                            <div class="toolbar-inner">
+                                <a href="#pantry" class="tab-link tab-link-active">
+                                    Pantry
+                                </a>
+                                <a href="#Crafts" class="tab-link">
+                                    Crafts
+                                </a>
+                                <a href="#Fish" class="tab-link">
+                                    Fish
+                                </a>
+                                <a href="#Mining" class="tab-link">
+                                    Mining
+                                </a>
+                                <a href="#Misc" class="tab-link">
+                                    Misc
+                                </a>
+                            </div>
                         </div>
-                        <div class="tab" id="fall">
+                        <div class="page-content">
+                            <div class="tabs">
+                                <div class="tab tab-active" id="pantry">
+                                    test
+                                </div>
+                                <div class="tab" id="Crafts">
+                                </div>
+                                <div class="tab" id="Fish">
+                                </div>
+                                <div class="tab" id="Mining">
+                                </div>
+                                <div class="tab" id="Misc">
+                                </div>
+                            </div>
                         </div>
-                        <div class="tab" id="winter">
-                        </div>
-                        <div class="tab" id="any">
-                        </div>
-                        <div class="tab" id="bundles">Bundle Sorting</div>
                     </div>
                 </div>
             </div>

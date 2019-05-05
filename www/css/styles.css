@@ -81,3 +81,12 @@
 .list .item-inner:after {
     background-color: transparent;
 }
+.tabs .tab .toolbar {
+    top: 0;
+}
+.page-content {
+    padding: 0;
+}
+.type {
+    width: 20%;
+}

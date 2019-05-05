@@ -121,9 +121,9 @@ function main() {
   });
 
   // Add click listeners to name buttons to display/hide dropdown info
-  const descButtons = document.querySelectorAll(".button-name");
-  // Iterate through descButtons
-  descButtons.forEach(function (button) {
+  const buttons = document.querySelectorAll(".button-name");
+  // Iterate through buttons
+  buttons.forEach(function (button) {
     button.addEventListener("click", function () {
       button.closest(".shownLi").nextElementSibling.classList.toggle("hidden");
       let chevron = button.lastElementChild;
@@ -131,21 +131,13 @@ function main() {
         `<i class="icon-up-open"></i>` : `<i class="icon-down-open"></i>`);
     });
   });
-  const typeButtons = document.querySelectorAll(".type");
-  // Iterate through buttons
-  for (let i = 0; i < typeButtons.length; i++) {
-    typeButtons[i].addEventListener("click", function () {
-      typeButtons[0].classList.toggle("hidden");
-      typeButtons[1].classList.toggle("hidden");
-    });
-  }
 }
 
 // Database of all items
 const database = [
   {
     name: "Quality Parsnips x5",
-    desc: "<p>Seeds available at Pierre's shop.</p> Gold quality only; five needed.",
+    desc: "Seeds available at Pierre's shop.<br>Gold quality only; five needed.",
     season: ["spring"],
     category: "farming"
   },
@@ -175,7 +167,7 @@ const database = [
   },
   {
     name: "Quality Melons x5",
-    desc: "<p>Seeds available at Pierre's shop.</p> Gold quality only; five needed.",
+    desc: "Seeds available at Pierre's shop.<br>Gold quality only; five needed.",
     season: ["summer"],
     category: "farming"
   },
@@ -205,7 +197,7 @@ const database = [
   },
   {
     name: "Quality Pumpkins x5",
-    desc: "<p>Seeds available at Pierre's shop.</p> Gold quality only; five needed.",
+    desc: "Seeds available at Pierre's shop.<br>Gold quality only; five needed.",
     season: ["fall"],
     category: "farming"
   },
