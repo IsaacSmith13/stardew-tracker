@@ -121,17 +121,24 @@ function main() {
   });
 
   // Add click listeners to name buttons to display/hide dropdown info
-  const buttons = document.querySelectorAll(".button-name");
-  // Iterate through buttons
-  buttons.forEach(function (button) {
+  const descButtons = document.querySelectorAll(".button-name");
+  // Iterate through descButtons
+  descButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      let hiddenListClass = button.closest(".shownLi").nextElementSibling;
-      hiddenListClass.className = (hiddenListClass.className === "hidden" ? "" : "hidden");
+      button.closest(".shownLi").nextElementSibling.classList.toggle("hidden");
       let chevron = button.lastElementChild;
       chevron.outerHTML = (chevron.outerHTML === `<i class="icon-down-open"></i>` ?
         `<i class="icon-up-open"></i>` : `<i class="icon-down-open"></i>`);
-    })
+    });
   });
+  const typeButtons = document.querySelectorAll(".type");
+  // Iterate through buttons
+  for (let i = 0; i < typeButtons.length; i++) {
+    typeButtons[i].addEventListener("click", function () {
+      typeButtons[0].classList.toggle("hidden");
+      typeButtons[1].classList.toggle("hidden");
+    });
+  }
 }
 
 // Database of all items
