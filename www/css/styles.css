@@ -78,6 +78,9 @@
     transform: scaleY(calc(1 / var(--f7-device-pixel-ratio)));
 }
 
+.list {
+    margin-top: 0;
+}
 .list .item-inner:after {
     background-color: transparent;
 }
@@ -87,6 +90,17 @@
 .page-content {
     padding: 0;
 }
+#navbar {
+    height: 80px;
+}
 .type {
-    width: 20%;
+    border-radius: 0;
+}
+.navbar-inner .button-outline {
+    background-color: white;
+}
+.navbar .title {
+    width: 100%;
+    margin: 2.3em 0 0 0;
+    text-align: center;
 }
