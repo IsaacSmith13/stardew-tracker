@@ -28,8 +28,8 @@ function main() {
   // Either way, load the save file for later usage
   let saveFile = JSON.parse(localStorage.getItem("save"));
 
-  // Populates all tabs with data
-  function populate(seasonList, categoryList) {
+  // Populates all season tabs with data
+  function populateSeasons(seasonList, categoryList) {
     // Iterate through each season's tab
     seasonList.forEach(function (season) {
       let seasonContent = "";
@@ -54,7 +54,7 @@ function main() {
                   ${category.charAt(0).toUpperCase() + category.slice(1)}:
                 </strong>
               </h3>
-              <ul class="${season}List">`;
+              <ul>`;
         // Iterate through the database
         database.forEach(function (item) {
           // If the item is in this season AND catagory, add it to the list
@@ -97,10 +97,80 @@ function main() {
     });
   }
 
-  // Instantiate parameters for populate and call it
+  // Instantiate parameters for populateSeasons and call it
   const seasonList = ["spring", "summer", "fall", "winter", "any"];
   const categoryList = ["farming", "foraging", "fishing", "mining", "misc"];
-  populate(seasonList, categoryList);
+  populateSeasons(seasonList, categoryList);
+
+
+  // Populates all bundle tabs with data
+  function populateBundles(roomList, bundles) {
+    roomList.forEach(room => {
+      let roomContent = "";
+      bundles[room].forEach(bundle => {
+        // Announce the catagory and start a list
+        let bundleContent = `
+        <div class="list">
+            <h3 class="text-align-center">
+              <strong>
+                ${bundle} Bundle:
+              </strong>
+            </h3>
+            <ul>`;
+        // Iterate through the database
+        database.forEach(function (item) {
+          // If the item is in this season AND catagory, add it to the list
+          if (item.bundle === bundle) {
+            bundleContent += `
+          <li class="shownLi">
+              <div class="item-content no-padding">
+                  <div class="item-inner">
+                      <div class="item-media">
+                          <img src="${item.img}" width="48" height="48">
+                      </div>
+                      <div class="item-title">
+                          <button class="button-name button${item.formattedName}">${item.name}<i class="icon-down-open"></i></button>
+                      </div>
+                      <div class="item-after">
+                          <label class="checkbox">
+                              <input class="check${item.formattedName}" type="checkbox" ${saveFile[item.formattedName]}>
+                              <i class="icon-checkbox"></i>
+                          </label>
+                      </div>
+                  </div>
+              </div>
+          </li>
+          <li class="hidden">
+              <div class="desc">
+                  ${item.desc}
+              </div>
+          </li>`
+          }
+        });
+
+        // End the list
+        bundleContent += `
+            </ul>
+        </div>`;
+        // Append this catagory to the season
+        roomContent += bundleContent;
+      });
+      // Change the content of this season's tab to the HTML created by the function
+      document.getElementById(room).innerHTML = roomContent;
+    });
+  }
+
+  // Instantiate parameters for populateBundles and call it
+  const roomList = ["craftsRoom", "pantry", "fishTank", "boilerRoom", "bulletinBoard"];
+  const bundles = {
+    craftsRoom: ["Spring Foraging", "Summer Foraging", "Fall Foraging", "Winter Foraging", "Exotic Foraging", "Construction"],
+    pantry: ["Spring Crops", "Summer Crops", "Fall Crops", "Quality Crops", "Animal", "Artisan"],
+    fishTank: ["River Fish", "Lake Fish", "Ocean Fish", "Night Fish", "Specialty Fish", "Crab Pot"],
+    boilerRoom: ["Blacksmith's", "Geologist's", "Adventurer's"],
+    bulletinBoard: ["Chef's", "Dye", "Field Research", "Fodder", "Enchanter's"]
+  };
+  populateBundles(roomList, bundles);
+
 
   // Add click listeners to checkboxes to update user save file
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
