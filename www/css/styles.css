@@ -42,7 +42,7 @@
     width: 65%;
 }
 
-.button-name {
+.button-name, .button-hide {
     border: .2em solid #007aff;
     background-color: transparent;
     border-radius: .4em;
@@ -52,26 +52,29 @@
     width: 100%
 }
 
+.button-hide {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 1em 0 1em 0;
+}
+
 .hidden {
     display: none;
 }
 
-.desc {
+.desc, .bundle-desc {
     text-align: center;
-    padding: 1em;
+    padding: 0 1em 1em 1em;
+    font-size: 16px;
 }
 
 /* Add underline to item descriptions */
-.tab .list ul li::before {
+.tab .list .shownLi::before, .line::after {
     content: '';
-    position: absolute;
+    position: sticky;
     background-color: var(--f7-list-item-border-color);
     display: block;
     z-index: 15;
-    top: 0;
-    right: 0;
-    bottom: auto;
-    left: auto;
     height: 1px;
     width: 100%;
     transform-origin: 50% 100%;

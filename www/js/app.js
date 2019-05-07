@@ -106,8 +106,15 @@ function main() {
   // Populates all bundle tabs with data
   function populateBundles(roomList, bundles) {
     roomList.forEach(room => {
-      let roomContent = "";
-      bundles[room].forEach(bundle => {
+      let roomContent = `
+      <button class="button-hide button${room[0]}">Reward <i class="icon-down-open"></i></button>
+      <span class="line hidden">
+        <div class="bundle-desc">
+        ${room[1]}
+        </div>
+      </span>
+      `;
+      bundles[room[0]].forEach(bundle => {
         // Announce the catagory and start a list
         let bundleContent = `
         <div class="list">
@@ -156,12 +163,18 @@ function main() {
         roomContent += bundleContent;
       });
       // Change the content of this season's tab to the HTML created by the function
-      document.getElementById(room).innerHTML = roomContent;
+      document.getElementById(room[0]).innerHTML = roomContent;
     });
   }
 
   // Instantiate parameters for populateBundles and call it
-  const roomList = ["craftsRoom", "pantry", "fishTank", "boilerRoom", "bulletinBoard"];
+  const roomList = [
+    ["craftsRoom", "Repairs the bridge to the east of the mines entrance, giving you access to the Quary. There is a wide selection of rocks and mining nodes generated here daily."],
+    ["pantry", "Repairs the Greenhouse on your farm. The greenhouse provides a 10x12 tile area for crops. Note that you can grow any crop here regardless of season."],
+    ["fishTank", "Removes the Glittering Boulder at the source of the river. Willy gives you the Copper Pan once you walk near the mines after you complete this room. The pan allows you to pan for minerals in water on shimmering light patches that occasionally spawn."],
+    ["boilerRoom", "Repairs the Minecarts, giving you access to quick travel all across the map! There are mine carts at the Bus Stop, Mines, Quarry, and by Clint's Workshop."],
+    ["bulletinBoard", "Grants you two hearts of friendship with all non-datable villagers that you have previously met."]
+  ];
   const bundles = {
     craftsRoom: ["Spring Foraging", "Summer Foraging", "Fall Foraging", "Winter Foraging", "Exotic Foraging", "Construction"],
     pantry: ["Spring Crops", "Summer Crops", "Fall Crops", "Quality Crops", "Animal", "Artisan"],
@@ -190,18 +203,39 @@ function main() {
     });
   });
 
-  // Add click listeners to name buttons to display/hide dropdown info
-  const buttons = document.querySelectorAll(".button-name");
-  // Iterate through buttons
-  buttons.forEach(function (button) {
+
+  // Add click listeners to item name buttons to display/hide dropdown descriptions
+  const itemButtons = document.querySelectorAll(".button-name");
+  // Iterate through itemButtons
+  itemButtons.forEach(function (button) {
+    // Add a click listener
     button.addEventListener("click", function () {
+      // Toggle the hidden class on its description
       button.closest(".shownLi").nextElementSibling.classList.toggle("hidden");
+      // Toggle the chevron icon to the correct direction
+      let chevron = button.lastElementChild;
+      chevron.outerHTML = (chevron.outerHTML === `<i class="icon-down-open"></i>` ?
+        `<i class="icon-up-open"></i>` : `<i class="icon-down-open"></i>`);
+    });
+  });
+
+
+  // Add click listeners to category buttons to display/hide items within
+  const categoryButtons = document.querySelectorAll(".button-hide");
+  // Iterate through categoryButtons
+  categoryButtons.forEach(function (button) {
+    // Add a click listener
+    button.addEventListener("click", function () {
+      // Toggle the hidden class on its contained list of items
+      button.nextElementSibling.classList.toggle("hidden");
+      // Toggle the chevron icon to the correct direction
       let chevron = button.lastElementChild;
       chevron.outerHTML = (chevron.outerHTML === `<i class="icon-down-open"></i>` ?
         `<i class="icon-up-open"></i>` : `<i class="icon-down-open"></i>`);
     });
   });
 }
+
 
 // Database of all items
 const database = [
