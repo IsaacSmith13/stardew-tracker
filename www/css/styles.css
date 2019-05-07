@@ -69,6 +69,10 @@
     font-weight: bold;
 }
 
+button {
+    outline: none;
+}
+
 .hidden {
     display: none;
 }

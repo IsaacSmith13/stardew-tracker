@@ -104,18 +104,63 @@ function main() {
   function populateBundles(roomList, bundles) {
     roomList.forEach(room => {
       let roomContent = "";
-      bundles[room[0]].forEach(bundle => {
-        // Announce the catagory and start a list
-        let bundleContent = `
+      // If the room is The Vault, generate data differently
+      if (room[0] === "vault") {
+        // Initialize list to be filled with items
+        roomContent += `
         <div class="list">
-          <button class="button-hide no-ripple">${bundle[0]} Bundle<i class="icon-down-open"></i></button>
+          <button class="button-hide no-ripple">Vault Bundle<i class="icon-down-open"></i></button>
           <ul class="hidden line">
         `;
         // Iterate through the database
         database.forEach(function (item) {
           // If the item is in this season AND catagory, add it to the list
-          if (item.bundle === bundle[0]) {
-            bundleContent += `
+          if (item.bundle === "Vault") {
+            roomContent += `
+            <li class="shownLi">
+                <div class="item-content no-padding">
+                    <div class="item-inner">
+                        <div class="item-media">
+                            <img src="${item.img}" width="48" height="48">
+                        </div>
+                        <div class="item-title">
+                            <button class="button-name">${item.name}<i class="icon-down-open"></i></button>
+                        </div>
+                        <div class="item-after">
+                            <label class="checkbox">
+                                <input class="check${item.formattedName}" type="checkbox" ${saveFile[item.formattedName]}>
+                                <i class="icon-checkbox"></i>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="hidden">
+                <div class="desc">
+                    ${item.desc}
+                </div>
+            </li>`
+          }
+        });
+        // End the list
+        roomContent += `
+          </ul>
+        </div>`;
+      }
+      // Otherwise populate normally
+      else {
+        bundles[room[0]].forEach(bundle => {
+          // Announce the category and start a list
+          let bundleContent = `
+        <div class="list">
+          <button class="button-hide no-ripple">${bundle[0]} Bundle<i class="icon-down-open"></i></button>
+          <ul class="hidden line">
+        `;
+          // Iterate through the database
+          database.forEach(function (item) {
+            // If the item is in this season AND catagory, add it to the list
+            if (item.bundle === bundle[0]) {
+              bundleContent += `
           <li class="shownLi">
               <div class="item-content no-padding">
                   <div class="item-inner">
@@ -139,11 +184,11 @@ function main() {
                   ${item.desc}
               </div>
           </li>`
-          }
-        });
+            }
+          });
 
-        // End the list
-        bundleContent += `
+          // End the list with the reward information
+          bundleContent += `
           <li class="shownLi">
                 <div class="item-content no-padding">
                   <div class="item-inner justify-content-center">
@@ -182,9 +227,10 @@ function main() {
               </li>
             </ul>
         </div>`;
-        // Append this catagory to the season
-        roomContent += bundleContent;
-      });
+          // Append this catagory to the season
+          roomContent += bundleContent;
+        });
+      }
       // Change the content of this season's tab to the HTML created by the function
       document.getElementById(room[0]).innerHTML = roomContent + `
       <div class="list">
@@ -204,7 +250,8 @@ function main() {
     ["pantry", "Repairs the Greenhouse on your farm. The greenhouse provides a 10x12 tile area for crops. Note that you can grow any crop here regardless of season."],
     ["fishTank", "Removes the Glittering Boulder at the source of the river. Willy gives you the Copper Pan once you walk near the mines after you complete this room. The pan allows you to pan for minerals in water on shimmering light patches that occasionally spawn."],
     ["boilerRoom", "Repairs the Minecarts, giving you access to quick travel all across the map! There are mine carts at the Bus Stop, Mines, Quarry, and by Clint's Workshop."],
-    ["bulletinBoard", "Grants you two hearts of friendship with all non-datable villagers that you have previously met."]
+    ["bulletinBoard", "Grants you two hearts of friendship with all non-datable villagers that you have previously met."],
+    ["vault", "Repairs the Bus Stop, allowing you access to The Calico Desert. The desert is required for many of the other bundle items."]
   ];
   const bundles = {
     craftsRoom: [["Spring Foraging", "Spring Seeds x30"], ["Summer Foraging", "Summer Seeds x30"], ["Fall Foraging", "Fall Seeds x30"], ["Winter Foraging", "Winter Seeds x30"], ["Exotic Foraging", "Autumn's Bounty x5"], ["Construction", "Charcoal Kiln"]],

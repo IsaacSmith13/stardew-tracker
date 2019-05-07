@@ -11,10 +11,18 @@ The app is available [on the Google Play store](https://play.google.com/store/ap
 
 ![alt text](https://i.imgur.com/b1YAAdT.png "App preview")
 
+Features
+--------
+* Contains a database of every community center bundle item, and where to get them.
+* These items are sortable by season, the bundle they belong to, as well as their acquisition category.
+* You can mark an item off as complete and the app will save your progress when you relaunch it.
+* The rewards for each room, as well as each individual bundle are all available in the bundles view.
+* Responsive design for all device sizes, and runs quickly even on slow devices.
+
 Built With
 ----------
-* PhoneGap used to port HTML/CSS/JavaScript to a hybrid Android deployment
-* Framework7 library utilized for stylization
+* PhoneGap used to port HTML/CSS/JavaScript to a hybrid Android deployment.
+* Framework7 library utilized for stylization.
 
 Getting Started
 ---------------
@@ -26,10 +34,17 @@ Source code:
 
 If you'd like to submit suggestions to the app, feel free to download the source code! 
 
-* www/index.html contains the entire application interface
-* www/js/app.js holds all the logic to create and render the database, as well as user-saved selections
-* www/img/items has all the icons for each item
-* www/css/styles.css has all the custom styles. Keep in mind that the Framework7 library is utilized in index.html to make things a lot prettier
+* Run git clone https://IsaacSmith13@bitbucket.org/IsaacSmith13/stardew-tracker.git on your command line to clone the repository.
+* Using Node Package Manager (NPM), run npm install in the project directory to install necessary packages.
+* Follow the [PhoneGap desktop installation instructions](http://docs.phonegap.com/getting-started/1-install-phonegap/desktop/) to get your development environment set up.
+* Follow the [Phonegap mobile installation instructions](http://docs.phonegap.com/getting-started/2-install-mobile-app/) to install the Phonegap app on your phone for testing purposes.
+* www/index.html contains the entire application interface.
+* www/js/app.js holds all the logic to create and render the database, as well as user-saved selections.
+* www/img/ has all the icons for each item and reward.
+* www/css/styles.css has all the custom styles. Keep in mind that the Framework7 library is utilized in index.html to make things a lot prettier.
+* After making any changes, you can test the app by opening PhoneGap desktop client, then following the plus in the top left and opening the project folder.  
+This will automatically host to your internal IP. Note, you may have to open port 3000 (or any port you choose) in your firewall for this to work.  
+Then open the PhoneGap developer app on your mobile device and type in the IP shown on the desktop client. You can now see any changes made without having to compile to an APK!
 
 License
 -------
