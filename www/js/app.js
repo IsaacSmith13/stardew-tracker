@@ -107,7 +107,7 @@ function main() {
   function populateBundles(roomList, bundles) {
     roomList.forEach(room => {
       let roomContent = `
-      <button class="button-hide button${room[0]}">Reward <i class="icon-down-open"></i></button>
+      <button class="button-hide no-ripple">Reward <i class="icon-down-open"></i></button>
       <span class="line hidden">
         <div class="bundle-desc">
         ${room[1]}
@@ -120,14 +120,42 @@ function main() {
         <div class="list">
             <h3 class="text-align-center">
               <strong>
-                ${bundle} Bundle:
+                ${bundle[0]}:
               </strong>
             </h3>
-            <ul>`;
+            <ul>
+              <li class="shownLi">
+                <div class="item-content no-padding">
+                    <div class="item-inner no-padding-right justify-content-center">
+                      <div class="item-title full">
+                          <button class="button-name">Reward <i class="icon-down-open"></i></button>
+                      </div>
+                    </div>
+                </div>
+              </li>
+              <li class="hidden">
+                <div class="item-content no-padding">
+                  <div class="item-inner">
+                    <div class="item-media">
+                      <img src="img/rewards/${bundle[1].split(' ').join('').split(':').join('')}.png" width="48" height="48">
+                    </div>
+                    <div class="item-title text-align-center">
+                      ${bundle[1]}
+                    </div>
+                    <div class="item-after">
+                      <label class="checkbox dummy">
+                        <input class="check" type="checkbox" disabled>
+                        <i class="icon-checkbox"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            `;
         // Iterate through the database
         database.forEach(function (item) {
           // If the item is in this season AND catagory, add it to the list
-          if (item.bundle === bundle) {
+          if (item.bundle === bundle[0]) {
             bundleContent += `
           <li class="shownLi">
               <div class="item-content no-padding">
@@ -136,7 +164,7 @@ function main() {
                           <img src="${item.img}" width="48" height="48">
                       </div>
                       <div class="item-title">
-                          <button class="button-name button${item.formattedName}">${item.name}<i class="icon-down-open"></i></button>
+                          <button class="button-name">${item.name}<i class="icon-down-open"></i></button>
                       </div>
                       <div class="item-after">
                           <label class="checkbox">
@@ -176,11 +204,11 @@ function main() {
     ["bulletinBoard", "Grants you two hearts of friendship with all non-datable villagers that you have previously met."]
   ];
   const bundles = {
-    craftsRoom: ["Spring Foraging", "Summer Foraging", "Fall Foraging", "Winter Foraging", "Exotic Foraging", "Construction"],
-    pantry: ["Spring Crops", "Summer Crops", "Fall Crops", "Quality Crops", "Animal", "Artisan"],
-    fishTank: ["River Fish", "Lake Fish", "Ocean Fish", "Night Fish", "Specialty Fish", "Crab Pot"],
-    boilerRoom: ["Blacksmith's", "Geologist's", "Adventurer's"],
-    bulletinBoard: ["Chef's", "Dye", "Field Research", "Fodder", "Enchanter's"]
+    craftsRoom: [["Spring Foraging", "Spring Seeds x30"], ["Summer Foraging", "Summer Seeds x30"], ["Fall Foraging", "Fall Seeds x30"], ["Winter Foraging", "Winter Seeds x30"], ["Exotic Foraging", "Autumn's Bounty x5"], ["Construction", "Charcoal Kiln"]],
+    pantry: [["Spring Crops", "Speed-Gro x20"], ["Summer Crops", "Quality Sprinkler"], ["Fall Crops", "Bee House"], ["Quality Crops", "Preserves Jar"], ["Animal", "Cheese Press"], ["Artisan", "Keg"]],
+    fishTank: [["River Fish", "Bait x30"], ["Lake Fish", "Dressed Spinner"], ["Ocean Fish", "Warp Totem: Beach x5"], ["Night Fish", "Small Glow Ring"], ["Specialty Fish", "Dish o' the Sea x5"], ["Crab Pot", "Crab Pot x3"]],
+    boilerRoom: [["Blacksmith's", "Furnace"], ["Geologist's", "Omni Geode x5"], ["Adventurer's", "Small Magnet Ring"]],
+    bulletinBoard: [["Chef's", "Pink Cake x3"], ["Dye", "Seed Maker"], ["Field Research", "Recycling Machine"], ["Fodder", "Heater"], ["Enchanter's", "Gold Bar x5"]]
   };
   populateBundles(roomList, bundles);
 
@@ -275,6 +303,20 @@ const database = [
     bundle: "Spring Crops"
   },
   {
+    name: "Quality Corn x5",
+    desc: "Seeds available at Pierre's shop. Gold quality only; five needed.",
+    season: ["summer", "fall"],
+    category: "farming",
+    bundle: "Quality Crops"
+  },
+  {
+    name: "Corn",
+    desc: "Seeds available at Pierre's shop.",
+    season: ["summer", "fall"],
+    category: "farming",
+    bundle: "Fall Crops"
+  },
+  {
     name: "Quality Melons x5",
     desc: "Seeds available at Pierre's shop.<br>Gold quality only; five needed.",
     season: ["summer"],
@@ -317,23 +359,9 @@ const database = [
     bundle: "Quality Crops"
   },
   {
-    name: "Quality Corn x5",
-    desc: "Seeds available at Pierre's shop. Gold quality only; five needed.",
-    season: ["fall"],
-    category: "farming",
-    bundle: "Quality Crops"
-  },
-  {
     name: "Pumpkin",
     desc: "Seeds available at Pierre's shop.",
     season: ["fall"],
-    category: "farming",
-    bundle: "Fall Crops"
-  },
-  {
-    name: "Corn",
-    desc: "Seeds available at Pierre's shop.",
-    season: ["summer", "fall"],
     category: "farming",
     bundle: "Fall Crops"
   },

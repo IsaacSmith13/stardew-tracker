@@ -41,8 +41,11 @@
 .item-title {
     width: 65%;
 }
+.item-title.full {
+    width: 90%;
+}
 
-.button-name, .button-hide {
+.button-name {
     border: .2em solid #007aff;
     background-color: transparent;
     border-radius: .4em;
@@ -53,9 +56,14 @@
 }
 
 .button-hide {
+    padding: .8em;
+    border: .2em solid #007aff;
+    background-color: transparent;
+    border-radius: .4em;
     font-size: 1.3em;
     font-weight: bold;
-    margin: 1em 0 1em 0;
+    margin: 1em 5% 1em 5%;
+    width: 90%;
 }
 
 .hidden {
@@ -110,4 +118,7 @@
 
 .toolbar-inner {
     font-size: .9em;
+}
+.dummy {
+    opacity: 0;
 }
