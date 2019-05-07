@@ -60,10 +60,13 @@
     border: .2em solid #007aff;
     background-color: transparent;
     border-radius: .4em;
-    font-size: 1.3em;
-    font-weight: bold;
     margin: 1em 5% 1em 5%;
     width: 90%;
+}
+
+.list .button-hide {
+    font-size: 1.3em;
+    font-weight: bold;
 }
 
 .hidden {
@@ -91,6 +94,7 @@
 
 .list {
     margin-top: 0;
+    margin-bottom: 0;
 }
 .list .item-inner:after {
     background-color: transparent;

@@ -5,7 +5,7 @@ function main() {
   const app = new Framework7({
     root: '#app',
     name: 'stardew-tracker',
-    id: 'com.isaactsmith.stardewtracker',
+    id: 'com.isaactsmith.stardewtracker'
   });
   const mainView = app.views.create('.view-main');
 
@@ -49,12 +49,9 @@ function main() {
         // Announce the catagory and start a list
         let categoryContent = `
           <div class="list">
-              <h3 class="text-align-center">
-                <strong>
-                  ${category.charAt(0).toUpperCase() + category.slice(1)}:
-                </strong>
-              </h3>
-              <ul>`;
+            <button class="button-hide no-ripple">${category.charAt(0).toUpperCase() + category.slice(1)}<i class="icon-down-open"></i></button>
+            <ul class="hidden line">
+          `;
         // Iterate through the database
         database.forEach(function (item) {
           // If the item is in this season AND catagory, add it to the list
@@ -106,52 +103,14 @@ function main() {
   // Populates all bundle tabs with data
   function populateBundles(roomList, bundles) {
     roomList.forEach(room => {
-      let roomContent = `
-      <button class="button-hide no-ripple">Reward <i class="icon-down-open"></i></button>
-      <span class="line hidden">
-        <div class="bundle-desc">
-        ${room[1]}
-        </div>
-      </span>
-      `;
+      let roomContent = "";
       bundles[room[0]].forEach(bundle => {
         // Announce the catagory and start a list
         let bundleContent = `
         <div class="list">
-            <h3 class="text-align-center">
-              <strong>
-                ${bundle[0]}:
-              </strong>
-            </h3>
-            <ul>
-              <li class="shownLi">
-                <div class="item-content no-padding">
-                    <div class="item-inner no-padding-right justify-content-center">
-                      <div class="item-title full">
-                          <button class="button-name">Reward <i class="icon-down-open"></i></button>
-                      </div>
-                    </div>
-                </div>
-              </li>
-              <li class="hidden">
-                <div class="item-content no-padding">
-                  <div class="item-inner">
-                    <div class="item-media">
-                      <img src="img/rewards/${bundle[1].split(' ').join('').split(':').join('')}.png" width="48" height="48">
-                    </div>
-                    <div class="item-title text-align-center">
-                      ${bundle[1]}
-                    </div>
-                    <div class="item-after">
-                      <label class="checkbox dummy">
-                        <input class="check" type="checkbox" disabled>
-                        <i class="icon-checkbox"></i>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            `;
+          <button class="button-hide no-ripple">${bundle[0]} Bundle<i class="icon-down-open"></i></button>
+          <ul class="hidden line">
+        `;
         // Iterate through the database
         database.forEach(function (item) {
           // If the item is in this season AND catagory, add it to the list
@@ -185,13 +144,57 @@ function main() {
 
         // End the list
         bundleContent += `
+          <li class="shownLi">
+                <div class="item-content no-padding">
+                  <div class="item-inner justify-content-center">
+                    <div class="item-media">
+                      <img src="img/rewards/BundleReward.png" width="48" height="48">
+                    </div>
+                    <div class="item-title">
+                        <button class="button-name">Reward <i class="icon-down-open"></i></button>
+                    </div>
+                    <div class="item-after">
+                      <label class="checkbox dummy">
+                        <input class="check" type="checkbox" disabled>
+                        <i class="icon-checkbox"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="hidden">
+                <div class="item-content no-padding">
+                  <div class="item-inner">
+                    <div class="item-media">
+                      <img src="img/rewards/${bundle[1].split(' ').join('').split(':').join('')}.png" width="48" height="48">
+                    </div>
+                    <div class="item-title text-align-center">
+                      ${bundle[1]}
+                    </div>
+                    <div class="item-after">
+                      <label class="checkbox dummy">
+                        <input class="check" type="checkbox" disabled>
+                        <i class="icon-checkbox"></i>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </li>
             </ul>
         </div>`;
         // Append this catagory to the season
         roomContent += bundleContent;
       });
       // Change the content of this season's tab to the HTML created by the function
-      document.getElementById(room[0]).innerHTML = roomContent;
+      document.getElementById(room[0]).innerHTML = roomContent + `
+      <div class="list">
+        <button class="button-hide no-ripple">Reward <i class="icon-down-open"></i></button>
+        <span class="line hidden">
+          <div class="bundle-desc">
+          ${room[1]}
+          </div>
+        </span>
+      </div>`;
     });
   }
 
