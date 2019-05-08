@@ -9,7 +9,8 @@ App Store Link
 --------------
 The app is available [on the Google Play store](https://play.google.com/store/apps/details?id=com.isaactsmith.stardewtracker).
 
-![alt text](https://i.imgur.com/b1YAAdT.png "App preview")
+Below are previews for both phone and tablet usage.  
+![alt text](https://i.imgur.com/HAq7EZx.png "Phone preview") ![alt text](https://i.imgur.com/kHCCexE.jpg "Tablet preview")
 
 Features
 --------
