@@ -312,6 +312,27 @@ function main() {
         `<i class="icon-up-open"></i>` : `<i class="icon-down-open"></i>`);
     });
   });
+
+
+  // Add click listeners to switch between light and dark mode
+  const modeButtons = document.querySelectorAll("#title > button");
+  // Iterate through mode buttons
+  modeButtons.forEach(button => {
+    // Add a click listener
+    button.addEventListener("click", function () {
+      // If the clicked mode is not already active
+      if (!button.classList.contains("active-mode")) {
+        // Toggle dark mode on/off
+        document.querySelector(".page-content").classList.toggle("dark");
+        // Toggle which mode button is highlighted
+        modeButtons.forEach(btn => {
+          btn.classList.toggle("button-fill");
+          btn.classList.toggle("button-outline");
+          btn.classList.toggle("active-mode");
+        });
+      }
+    });
+  });
 }
 
 

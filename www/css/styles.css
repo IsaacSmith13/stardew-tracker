@@ -1,3 +1,55 @@
+/* Dark mode styles */
+.dark {
+    background-color: #303030;
+}
+
+.dark .list ul {
+    background-color: #303030;
+    background: #303030;
+}
+
+.dark .list button, .dark .list .item-content, .dark .list .desc, .dark .bundle-desc {
+    background-color: #303030;
+    background: #303030;
+    color: white;
+}
+
+.dark .list .desc {
+    color: #ffffffb3;
+}
+
+.dark .tabs .tab .tabs .tab .list .shownLi::before, .dark .tabs .tab .line::after {
+    background-color: #424242;
+    background: #424242;
+    transform: none;
+    transform-origin: 0;
+}
+
+#title {
+    display: inline-flex;
+    margin-top: 40px;
+}
+
+#title div {
+    align-self: center;
+}
+
+.light-mode {
+    border-radius: 0 .4em .4em 0;
+}
+
+.dark-mode {
+    border-radius: .4em 0 0 .4em;
+}
+
+.active-mode {
+    background-color: white;
+}
+
+.list .desc {
+    color: #000000b3;
+}
+
 .statusbar-overlay {
     background-color: #000000;
 }
@@ -122,7 +174,8 @@ button {
     margin-top: 0;
     margin-bottom: 0;
 }
-.list .item-inner:after {
+.list .item-inner::after {
+    display: inline;
     background-color: transparent;
 }
 .list .item-inner {
@@ -149,9 +202,29 @@ button {
     text-align: center;
 }
 
+/* Responsive font sizes for season/bundle tabs */
 .toolbar-inner {
-    font-size: .9em;
+    font-size: 1.3em;
 }
+
+@media only screen and (max-width: 474px) {
+    .toolbar-inner {
+        font-size: 1.1em;
+    }
+}
+
+@media only screen and (max-width: 424px) {
+    .toolbar-inner {
+        font-size: .9em;
+    }
+}
+
+@media only screen and (max-width: 374px) {
+    .toolbar-inner {
+        font-size: .8em;
+    }
+}
+
 .dummy {
     opacity: 0;
 }
