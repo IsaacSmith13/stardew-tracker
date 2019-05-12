@@ -21,6 +21,9 @@
 .list .item-after {
     color: inherit;
     font-size: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
 }
 
 /* fixing bug with framework7's checkbox */
@@ -28,14 +31,26 @@
     opacity: 0;
 }
 
-.item-media {
-    margin-right: auto;
-    margin-left: 5%;
+input[type=checkbox] {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }
 
-.item-after {
+.checkbox {
+    width: 1.8em;
+    height: 1.8em;
+}
+
+.checkbox i {
+    width: 100%;
+    height: 100%;
+}
+
+.item-media {
+    margin-right: auto;
     margin-left: auto;
-    margin-right: 3%;
 }
 
 .item-title {
@@ -68,6 +83,13 @@
     font-size: 1.3em;
     font-weight: bold;
 }
+
+@media only screen and (max-width: 374px) {
+    .list .button-hide {
+        font-size: 1.1em;
+        font-weight: bold;
+    }
+  }
 
 button {
     outline: none;
@@ -102,6 +124,9 @@ button {
 }
 .list .item-inner:after {
     background-color: transparent;
+}
+.list .item-inner {
+    padding-right: 0;
 }
 .tabs .tab .toolbar {
     top: 0;
