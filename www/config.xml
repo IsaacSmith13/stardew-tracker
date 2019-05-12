@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.isaactsmith.stardewtracker" version="1.1.0" versionCode = "10013" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.isaactsmith.stardewtracker" version="1.1.5" versionCode = "10015" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Stardew Community Center Tracker</name>
     <description>
         Stardew Valley Community Center Tracker tracks all your community center items, so you don't have to! Items are sorted by season, as well as method of getting them. Each item tells you what season, time, and method are required to get it. As great as it would be to play Stardew Valley 24/7, sometimes life  gets in the way and makes you take breaks, so the app saves your progress automatically for easy continuation.

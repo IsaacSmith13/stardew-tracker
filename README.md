@@ -10,7 +10,9 @@ App Store Link
 The app is available [on the Google Play store](https://play.google.com/store/apps/details?id=com.isaactsmith.stardewtracker).
 
 Below are previews for both phone and tablet usage.  
-![alt text](https://i.imgur.com/HAq7EZx.png "Phone preview") ![alt text](https://i.imgur.com/kHCCexE.jpg "Tablet preview")
+![alt text](https://i.imgur.com/HAq7EZx.png "Phone preview") ![alt text](https://i.imgur.com/Ov8a3Bl.png "Phone preview - dark mode")
+![alt text](https://i.imgur.com/kHCCexE.jpg "Tablet preview")
+
 
 Features
 --------
@@ -19,6 +21,7 @@ Features
 * You can mark an item off as complete and the app will save your progress when you relaunch it.
 * The rewards for each room, as well as each individual bundle are all available in the bundles view.
 * Responsive design for all device sizes, and runs quickly even on slow devices.
+* Dark mode available for less eye strain.
 
 Built With
 ----------
@@ -46,6 +49,7 @@ If you'd like to submit suggestions to the app, feel free to download the source
 * After making any changes, you can test the app by opening PhoneGap desktop client, then following the plus in the top left and opening the project folder.  
 This will automatically host to your internal IP. Note, you may have to open port 3000 (or any port you choose) in your firewall for this to work.  
 Then open the PhoneGap developer app on your mobile device and type in the IP shown on the desktop client. You can now see any changes made without having to compile to an APK!
+* NOTE: For easy previewing, you can simply open the index.html file in your browser, go to developer tools, and toggle device toolbar (ctrl+shift+m in Chrome) to see what the app will look like on a mobile device.
 
 License
 -------
