@@ -154,7 +154,24 @@ function main() {
           let bundleContent = `
         <div class="list">
           <button class="button-hide no-ripple">${bundle[0]} Bundle<i class="icon-down-open"></i></button>
-          <ul class="hidden line">
+          <ul class="${bundle[2]} hidden line">
+          <li class="shownLi">
+            <div class="item-content no-padding">
+              <div class="item-inner">
+                <div class="item-media dummy">
+                  <img src="" width="48" height="48">
+                </div>
+                <div id="${bundle[2]}" class="progress item-title">
+                  <div></div>
+                </div>
+                <div class="item-after">
+                  <div class=checkbox>
+                    0/4
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
         `;
           // Iterate through the database
           database.forEach(function (item) {
@@ -190,43 +207,43 @@ function main() {
           // End the list with the reward information
           bundleContent += `
           <li class="shownLi">
-                <div class="item-content no-padding">
-                  <div class="item-inner justify-content-center">
-                    <div class="item-media">
-                      <img src="img/rewards/BundleReward.png" width="48" height="48">
-                    </div>
-                    <div class="item-title">
-                        <button class="button-name">Reward <i class="icon-down-open"></i></button>
-                    </div>
-                    <div class="item-after">
-                      <label class="checkbox dummy">
-                        <input class="check" type="checkbox" disabled>
-                        <i class="icon-checkbox"></i>
-                      </label>
-                    </div>
-                  </div>
+            <div class="item-content no-padding">
+              <div class="item-inner justify-content-center">
+                <div class="item-media">
+                  <img src="img/rewards/BundleReward.png" width="48" height="48">
                 </div>
-              </li>
-              <li class="hidden">
-                <div class="item-content no-padding">
-                  <div class="item-inner">
-                    <div class="item-media">
-                      <img src="img/rewards/${bundle[1].split(' ').join('').split(':').join('')}.png" width="48" height="48">
-                    </div>
-                    <div class="item-title text-align-center">
-                      ${bundle[1]}
-                    </div>
-                    <div class="item-after">
-                      <label class="checkbox dummy">
-                        <input class="check" type="checkbox" disabled>
-                        <i class="icon-checkbox"></i>
-                      </label>
-                    </div>
-                  </div>
+                <div class="item-title">
+                    <button class="button-name">Reward <i class="icon-down-open"></i></button>
                 </div>
-              </li>
-            </ul>
-        </div>`;
+                <div class="item-after">
+                  <label class="checkbox dummy">
+                    <input class="check" type="checkbox" disabled>
+                    <i class="icon-checkbox"></i>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="hidden">
+            <div class="item-content no-padding">
+              <div class="item-inner">
+                <div class="item-media">
+                  <img src="img/rewards/${bundle[1].split(' ').join('').split(':').join('')}.png" width="48" height="48">
+                </div>
+                <div class="item-title text-align-center">
+                  ${bundle[1]}
+                </div>
+                <div class="item-after">
+                  <label class="checkbox dummy">
+                    <input class="check" type="checkbox" disabled>
+                    <i class="icon-checkbox"></i>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>`;
           // Append this catagory to the season
           roomContent += bundleContent;
         });
@@ -260,6 +277,12 @@ function main() {
     boilerRoom: [["Blacksmith's", "Furnace"], ["Geologist's", "Omni Geode x5"], ["Adventurer's", "Small Magnet Ring"]],
     bulletinBoard: [["Chef's", "Pink Cake x3"], ["Dye", "Seed Maker"], ["Field Research", "Recycling Machine"], ["Fodder", "Heater"], ["Enchanter's", "Gold Bar x5"]]
   };
+  // Add IDs to each class bundle
+  Object.values(bundles).forEach(room => {
+    room.forEach(bundle => {
+      bundle[2] = bundle[0].split(' ').join('').split(':').join('');
+    });
+  });
   populateBundles(roomList, bundles);
 
 
