@@ -188,7 +188,7 @@ function main() {
                           <button class="button-name">${item.name}<i class="icon-down-open"></i></button>
                       </div>
                       <div class="item-after">
-                          <label class="checkbox">
+                          <label class="checkbox bundle-check">
                               <input class="check${item.formattedName}" type="checkbox" ${saveFile[item.formattedName]}>
                               <i class="icon-checkbox"></i>
                           </label>
@@ -280,13 +280,13 @@ function main() {
   // Add IDs to each class bundle
   Object.values(bundles).forEach(room => {
     room.forEach(bundle => {
-      bundle[2] = bundle[0].split(' ').join('').split(':').join('');
+      bundle[2] = bundle[0].split(' ').join('').split("'").join('');
     });
   });
   populateBundles(roomList, bundles);
 
 
-  // Add click listeners to checkboxes to update user save file
+  // Add click listeners to checkboxes to update user save file and update progress bar
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
   // Iterate through checkboxes
   checkboxes.forEach(function (checkbox) {
@@ -301,6 +301,13 @@ function main() {
       let check = checkbox.className.slice(5);
       saveFile[check] = (saveFile[check] === "" ? "checked" : "");
       localStorage.setItem("save", JSON.stringify(saveFile));
+
+      // Update the progress bar of the item's bundle
+      if (checkbox.parentNode.classList.contains("bundle-check")) {
+        const bundle = checkbox.closest("UL");
+        const numberOfCheckedInBundle = bundle.querySelectorAll("input:checked").length;
+        const progressBar = document.querySelector(`#${bundle.classList[0].split(' ').join('').split("'").join('')} div`);
+      }
     });
   });
 
