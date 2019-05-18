@@ -109,9 +109,26 @@ function main() {
         // Initialize list to be filled with items
         roomContent += `
         <div class="list">
-          <button class="button-hide no-ripple">Vault Bundle<i class="icon-down-open"></i></button>
-          <ul class="hidden line">
-        `;
+          <button class="button-hide no-ripple"><span>Vault Bundle</span><i class="icon-down-open"></i></button>
+          <ul class="vaultBundle hidden line">
+            <li class="shownLi">
+              <div class="item-content no-padding">
+                <div class="item-inner">
+                  <div class="item-media dummy">
+                    <img src="" width="48" height="48">
+                  </div>
+                  <div id="vaultBundle" class="progress item-title">
+                    <div></div>
+                  </div>
+                  <div class="item-after">
+                    <div class=checkbox>
+                      <span>0</span>/<span>4</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          `;
         // Iterate through the database
         database.forEach(function (item) {
           // If the item is in this season AND catagory, add it to the list
@@ -127,7 +144,7 @@ function main() {
                             <button class="button-name">${item.name}<i class="icon-down-open"></i></button>
                         </div>
                         <div class="item-after">
-                            <label class="checkbox">
+                            <label class="checkbox bundle-check">
                                 <input class="check${item.formattedName}" type="checkbox" ${saveFile[item.formattedName]}>
                                 <i class="icon-checkbox"></i>
                             </label>
@@ -154,19 +171,19 @@ function main() {
           let bundleContent = `
         <div class="list">
           <button class="button-hide no-ripple"><span>${bundle[0]} Bundle</span><i class="icon-down-open"></i></button>
-          <ul class="${bundle[2]} hidden line">
+          <ul class="${bundle[3]} hidden line">
           <li class="shownLi">
             <div class="item-content no-padding">
               <div class="item-inner">
                 <div class="item-media dummy">
                   <img src="" width="48" height="48">
                 </div>
-                <div id="${bundle[2]}" class="progress item-title">
+                <div id="${bundle[3]}" class="progress item-title">
                   <div></div>
                 </div>
                 <div class="item-after">
                   <div class=checkbox>
-                    <span>0</span>/<span>4</span>
+                    <span>0</span>/<span>${bundle[2]}</span>
                   </div>
                 </div>
               </div>
@@ -262,6 +279,7 @@ function main() {
   }
 
   // Instantiate parameters for populateBundles and call it
+  // Name of room | description of reward for room
   const roomList = [
     ["craftsRoom", "Repairs the bridge to the east of the mines entrance, giving you access to the Quary. There is a wide selection of rocks and mining nodes generated here daily."],
     ["pantry", "Repairs the Greenhouse on your farm. The greenhouse provides a 10x12 tile area for crops. Note that you can grow any crop here regardless of season."],
@@ -270,17 +288,18 @@ function main() {
     ["bulletinBoard", "Grants you two hearts of friendship with all non-datable villagers that you have previously met."],
     ["vault", "Repairs the Bus Stop, allowing you access to The Calico Desert. The desert is required for many of the other bundle items."]
   ];
+  // Name of bundle | reward for bundle | number of items needed for bundle
   const bundles = {
-    craftsRoom: [["Spring Foraging", "Spring Seeds x30"], ["Summer Foraging", "Summer Seeds x30"], ["Fall Foraging", "Fall Seeds x30"], ["Winter Foraging", "Winter Seeds x30"], ["Exotic Foraging", "Autumn's Bounty x5"], ["Construction", "Charcoal Kiln"]],
-    pantry: [["Spring Crops", "Speed-Gro x20"], ["Summer Crops", "Quality Sprinkler"], ["Fall Crops", "Bee House"], ["Quality Crops", "Preserves Jar"], ["Animal", "Cheese Press"], ["Artisan", "Keg"]],
-    fishTank: [["River Fish", "Bait x30"], ["Lake Fish", "Dressed Spinner"], ["Ocean Fish", "Warp Totem: Beach x5"], ["Night Fish", "Small Glow Ring"], ["Specialty Fish", "Dish o' the Sea x5"], ["Crab Pot", "Crab Pot x3"]],
-    boilerRoom: [["Blacksmith's", "Furnace"], ["Geologist's", "Omni Geode x5"], ["Adventurer's", "Small Magnet Ring"]],
-    bulletinBoard: [["Chef's", "Pink Cake x3"], ["Dye", "Seed Maker"], ["Field Research", "Recycling Machine"], ["Fodder", "Heater"], ["Enchanter's", "Gold Bar x5"]]
+    craftsRoom: [["Spring Foraging", "Spring Seeds x30", "4"], ["Summer Foraging", "Summer Seeds x30", "3"], ["Fall Foraging", "Fall Seeds x30", "4"], ["Winter Foraging", "Winter Seeds x30", "4"], ["Exotic Foraging", "Autumn's Bounty x5", "5"], ["Construction", "Charcoal Kiln", "4"]],
+    pantry: [["Spring Crops", "Speed-Gro x20", "4"], ["Summer Crops", "Quality Sprinkler", "4"], ["Fall Crops", "Bee House", "4"], ["Quality Crops", "Preserves Jar", "3"], ["Animal", "Cheese Press", "5"], ["Artisan", "Keg", "6"]],
+    fishTank: [["River Fish", "Bait x30", "4"], ["Lake Fish", "Dressed Spinner", "4"], ["Ocean Fish", "Warp Totem: Beach x5", "4"], ["Night Fish", "Small Glow Ring", "3"], ["Specialty Fish", "Dish o' the Sea x5", "4"], ["Crab Pot", "Crab Pot x3", "5"]],
+    boilerRoom: [["Blacksmith's", "Furnace", "3"], ["Geologist's", "Omni Geode x5", "4"], ["Adventurer's", "Small Magnet Ring", "2"]],
+    bulletinBoard: [["Chef's", "Pink Cake x3", "6"], ["Dye", "Seed Maker", "6"], ["Field Research", "Recycling Machine", "4"], ["Fodder", "Heater", "3"], ["Enchanter's", "Gold Bar x5", "4"]]
   };
   // Add IDs to each class bundle
   Object.values(bundles).forEach(room => {
     room.forEach(bundle => {
-      bundle[2] = bundle[0].split(' ').join('').split("'").join('');
+      bundle[3] = bundle[0].split(' ').join('').split("'").join('');
     });
   });
   populateBundles(roomList, bundles);
@@ -301,8 +320,8 @@ function main() {
       var numberOfItemsNeeded = progressBar.parentElement.nextElementSibling.firstElementChild.lastElementChild;
       var numberOfItemsObtained = numberOfItemsNeeded.previousElementSibling;
       var bundleTitle = bundle.previousElementSibling.firstChild;
-      numberOfItemsObtained.textContent = numberOfCheckedInBundle;
-      progressBar.style.width = (numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100 + "%";
+      numberOfItemsObtained.textContent = Math.min(numberOfCheckedInBundle, numberOfItemsNeeded.textContent);
+      progressBar.style.width = Math.min(((numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100), 100) + "%";
       // If the progress bar is full, mark the bundle as complete and round the progress bar
       bundleTitle.className = (progressBar.style.width == "100%" ? "complete" : "");
       progressBar.style.borderRadius = (progressBar.style.width == "100%" ? "25px" : "25px 0 0 25px");
@@ -325,8 +344,8 @@ function main() {
       if (checkbox.parentNode.classList.contains("bundle-check")) {
         // Update the progress bar of the item's bundle
         numberOfCheckedInBundle = bundle.querySelectorAll("input:checked").length;
-        numberOfItemsObtained.textContent = numberOfCheckedInBundle;
-        progressBar.style.width = (numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100 + "%";
+        numberOfItemsObtained.textContent = Math.min(numberOfCheckedInBundle, numberOfItemsNeeded.textContent);
+        progressBar.style.width = Math.min(((numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100), 100) + "%";
         // If the progress bar is full, mark the bundle as complete and round the progress bar
         bundleTitle.className = (progressBar.style.width == "100%" ? "complete" : "");
         progressBar.style.borderRadius = (progressBar.style.width == "100%" ? "25px" : "25px 0 0 25px");
