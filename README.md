@@ -22,6 +22,7 @@ Features
 * The rewards for each room, as well as each individual bundle are all available in the bundles view.
 * Responsive design for all device sizes, and runs quickly even on slow devices.
 * Dark mode available for less eye strain.
+* Bundles track your progress, showing you how many items you need to complete them, as well as letting you know from the main screen that they are complete.
 
 Built With
 ----------
