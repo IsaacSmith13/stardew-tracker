@@ -229,6 +229,7 @@ button {
     opacity: 0;
 }
 
+/* Progress bar in bundles view */
 .progress {
     background-color: black;
     border-radius: 13px;
@@ -237,7 +238,7 @@ button {
   }
 
 .progress>div {
-    background-color: blue;
+    background-color: #007aff;
     width: 0%;
     /* Adjust with JavaScript */
     height: 20px;

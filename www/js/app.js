@@ -302,6 +302,10 @@ function main() {
       var numberOfItemsObtained = numberOfItemsNeeded.previousElementSibling;
       numberOfItemsObtained.textContent = numberOfCheckedInBundle;
       progressBar.style.width = (numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100 + "%";
+      // If the progress bar is full, round the right side
+      if (progressBar.style.width == "100%") {
+        progressBar.style.borderRadius = "10px";
+      }
     }
 
     // Add a click listener
@@ -323,6 +327,13 @@ function main() {
         numberOfCheckedInBundle = bundle.querySelectorAll("input:checked").length;
         numberOfItemsObtained.textContent = numberOfCheckedInBundle;
         progressBar.style.width = (numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100 + "%";
+        // If the progress bar is full, round the right side
+        if (progressBar.style.width == "100%") {
+          progressBar.style.borderRadius = "10px";
+        } else {
+          // Else the progress bar is no longer full, flatten the right side
+          progressBar.style.borderRadius = "10px 0 0 10px";
+        }
       }
     });
   });
