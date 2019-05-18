@@ -166,7 +166,7 @@ function main() {
                 </div>
                 <div class="item-after">
                   <div class=checkbox>
-                    0/4
+                    <span>0</span>/<span>4</span>
                   </div>
                 </div>
               </div>
@@ -290,6 +290,20 @@ function main() {
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
   // Iterate through checkboxes
   checkboxes.forEach(function (checkbox) {
+
+    // If the item is in a bundle
+    if (checkbox.parentNode.classList.contains("bundle-check")) {
+      // Update the progress bar once per item when the page loads
+      // (and instantiate variables referring to elements for later use)
+      var bundle = checkbox.closest("UL");
+      var numberOfCheckedInBundle = bundle.querySelectorAll("input:checked").length;
+      var progressBar = document.querySelector(`#${bundle.classList[0].split(' ').join('').split("'").join('')} div`);
+      var numberOfItemsNeeded = progressBar.parentElement.nextElementSibling.firstElementChild.lastElementChild;
+      var numberOfItemsObtained = numberOfItemsNeeded.previousElementSibling;
+      numberOfItemsObtained.textContent = numberOfCheckedInBundle;
+      progressBar.style.width = (numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100 + "%";
+    }
+
     // Add a click listener
     checkbox.addEventListener("click", function () {
       // Select all instances of this item from each tab
@@ -297,16 +311,18 @@ function main() {
         // Make each instance have the same .checked property as the clicked one
         item.checked = (checkbox.checked === true ? true : false)
       });
+
       // Save the checked property in localStorage
       let check = checkbox.className.slice(5);
       saveFile[check] = (saveFile[check] === "" ? "checked" : "");
       localStorage.setItem("save", JSON.stringify(saveFile));
 
-      // Update the progress bar of the item's bundle
+      // If the item is in a bundle
       if (checkbox.parentNode.classList.contains("bundle-check")) {
-        const bundle = checkbox.closest("UL");
-        const numberOfCheckedInBundle = bundle.querySelectorAll("input:checked").length;
-        const progressBar = document.querySelector(`#${bundle.classList[0].split(' ').join('').split("'").join('')} div`);
+        // Update the progress bar of the item's bundle
+        numberOfCheckedInBundle = bundle.querySelectorAll("input:checked").length;
+        numberOfItemsObtained.textContent = numberOfCheckedInBundle;
+        progressBar.style.width = (numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100 + "%";
       }
     });
   });
