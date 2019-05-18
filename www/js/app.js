@@ -153,7 +153,7 @@ function main() {
           // Announce the category and start a list
           let bundleContent = `
         <div class="list">
-          <button class="button-hide no-ripple">${bundle[0]} Bundle<i class="icon-down-open"></i></button>
+          <button class="button-hide no-ripple"><span>${bundle[0]} Bundle</span><i class="icon-down-open"></i></button>
           <ul class="${bundle[2]} hidden line">
           <li class="shownLi">
             <div class="item-content no-padding">
@@ -300,12 +300,12 @@ function main() {
       var progressBar = document.querySelector(`#${bundle.classList[0].split(' ').join('').split("'").join('')} div`);
       var numberOfItemsNeeded = progressBar.parentElement.nextElementSibling.firstElementChild.lastElementChild;
       var numberOfItemsObtained = numberOfItemsNeeded.previousElementSibling;
+      var bundleTitle = bundle.previousElementSibling.firstChild;
       numberOfItemsObtained.textContent = numberOfCheckedInBundle;
       progressBar.style.width = (numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100 + "%";
-      // If the progress bar is full, round the right side
-      if (progressBar.style.width == "100%") {
-        progressBar.style.borderRadius = "10px";
-      }
+      // If the progress bar is full, mark the bundle as complete and round the progress bar
+      bundleTitle.className = (progressBar.style.width == "100%" ? "complete" : "");
+      progressBar.style.borderRadius = (progressBar.style.width == "100%" ? "25px" : "25px 0 0 25px");
     }
 
     // Add a click listener
@@ -327,13 +327,9 @@ function main() {
         numberOfCheckedInBundle = bundle.querySelectorAll("input:checked").length;
         numberOfItemsObtained.textContent = numberOfCheckedInBundle;
         progressBar.style.width = (numberOfCheckedInBundle / numberOfItemsNeeded.textContent) * 100 + "%";
-        // If the progress bar is full, round the right side
-        if (progressBar.style.width == "100%") {
-          progressBar.style.borderRadius = "10px";
-        } else {
-          // Else the progress bar is no longer full, flatten the right side
-          progressBar.style.borderRadius = "10px 0 0 10px";
-        }
+        // If the progress bar is full, mark the bundle as complete and round the progress bar
+        bundleTitle.className = (progressBar.style.width == "100%" ? "complete" : "");
+        progressBar.style.borderRadius = (progressBar.style.width == "100%" ? "25px" : "25px 0 0 25px");
       }
     });
   });
