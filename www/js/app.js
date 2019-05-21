@@ -396,6 +396,8 @@ function main() {
       if (!button.classList.contains("active-mode")) {
         // Toggle dark mode on/off
         document.querySelector(".page-content").classList.toggle("dark");
+        saveFile["dark"] = (saveFile["dark"] === "" ? "on" : "");
+        localStorage.setItem("save", JSON.stringify(saveFile));
         // Toggle which mode button is highlighted
         modeButtons.forEach(btn => {
           btn.classList.toggle("button-fill");
@@ -405,6 +407,19 @@ function main() {
       }
     });
   });
+
+
+  // Enable dark mode if user has selected it
+  if (saveFile["dark"] == "on") {
+    console.log("dark on");
+    document.querySelector(".page-content").classList.toggle("dark");
+    document.querySelectorAll("button.col-20").forEach(button => {
+      listOfClasses = ["button-outline", "button-fill", "active-mode"]
+      listOfClasses.forEach(htmlClass => {
+        button.classList.toggle(htmlClass);
+      });
+    });
+  }
 }
 
 
