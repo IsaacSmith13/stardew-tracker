@@ -21,3 +21,8 @@ Version 1.2.0
 * Bundle progress now tracked!
 * Each bundle will tell you how many items you need to get it
 * Bundle titles also now indicate that the bundle is complete from the main screen
+
+Version 1.3.0
+-------------
+* Completely restyled app!
+* Dark mode preference is now saved when you reopen the app
