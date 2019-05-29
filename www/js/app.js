@@ -398,8 +398,6 @@ function main() {
         document.querySelector(".page-content").classList.toggle("dark");
         // Toggle which mode button is highlighted
         modeButtons.forEach(btn => {
-          btn.classList.toggle("button-fill");
-          btn.classList.toggle("button-outline");
           btn.classList.toggle("active-mode");
         });
       }

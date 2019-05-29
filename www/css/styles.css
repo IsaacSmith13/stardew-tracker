@@ -1,28 +1,52 @@
+:root {
+    --f7-theme-color: #00B554;
+    --accent: #424242;
+    --white: #ffffff;
+    --button-background-color: var(--white);
+    --button-color: var(--f7-theme-color);
+    --f7-button-text-color: var(--f7-theme-color);
+    --f7-checkbox-active-color: var(--accent);
+    --text-color: var(--accent);
+    --f7-tabbar-link-text-transform: none;
+    --f7-button-text-transform: none;
+    --f7-tabbar-link-font-weight: 800;
+    --f7-button-font-weight: 800;
+    --f7-button-font-size: .8em;
+    --f7-text-color: var(--white);
+}
+
 /* Dark mode styles */
 .dark {
-    background-color: #303030;
+    --f7-theme-color: #424242;
+    --accent: #00B554;
+    --button-background-color: var(--f7-theme-color);
+    --button-color: var(--white);
+    --f7-button-text-color: var(--f7-theme-color);
+    --f7-checkbox-active-color: var(--accent);
+    --text-color: var(--white);
 }
 
-.dark .list ul {
-    background-color: #303030;
-    background: #303030;
+.dark .button-hide, .dark .button-name {
+    border: 2px solid var(--white) !important;
+    color: var(--white) !important;
 }
 
-.dark .list button, .dark .list .item-content, .dark .list .desc, .dark .bundle-desc {
-    background-color: #303030;
-    background: #303030;
-    color: white;
+#navbar .active-mode {
+    color: var(--white);
+    border-color: var(--white);
+    border-width: 2px;
 }
 
-.dark .list .desc {
-    color: #ffffffb3;
+.button-hide {
+    font-weight: 800;
 }
 
-.dark .tabs .tab .tabs .tab .list .shownLi::before, .dark .tabs .tab .line::after {
-    background-color: #424242;
-    background: #424242;
-    transform: none;
-    transform-origin: 0;
+.page-content, .page-content ul, .tabs {
+    background-color: var(--f7-theme-color) !important;
+}
+
+.tabs #navbar .button, .tabs .toolbar .button {
+    background-color: var(--accent) !important;
 }
 
 #title {
@@ -43,31 +67,28 @@
 }
 
 .active-mode {
-    background-color: white;
-}
-
-.list .desc {
-    color: #000000b3;
+    background-color: var(--white);
 }
 
 .statusbar-overlay {
     background-color: #000000;
 }
 
-.page .toolbar, .page .navbar {
-    background-color: #269624;
+.page .page-content .tabs #navbar, #seasons .toolbar, #bundles .toolbar {
+    background-color: var(--accent) !important;
+    color: var(--white) !important;
 }
 
 .tabbar .tab-link {
-    color: #000;
+    color: var(--f7-theme-color);
 }
 
 .tabbar .tab-link-active {
-    color: #fff;
+    color: var(--white);
 }
 
 .md .tabbar .tab-link-highlight {
-    background-color: #fff;
+    background-color: var(--white);
 }
 
 .list .item-after {
@@ -100,6 +121,10 @@ input[type=checkbox] {
     height: 100%;
 }
 
+.icon-checkbox {
+    background-color: var(--white);
+}
+
 .item-media {
     margin-right: auto;
     margin-left: auto;
@@ -113,8 +138,9 @@ input[type=checkbox] {
 }
 
 .button-name {
-    border: .2em solid #007aff;
-    background-color: transparent;
+    border: none;
+    background-color: var(--button-background-color) !important;
+    color: var(--accent) !important;
     border-radius: .4em;
     font-size: inherit;
     font-family: inherit;
@@ -124,8 +150,9 @@ input[type=checkbox] {
 
 .button-hide {
     padding: .8em;
-    border: .2em solid #007aff;
-    background-color: transparent;
+    border: none;
+    color: var(--accent) !important;
+    background-color: var(--button-background-color) !important;
     border-radius: .4em;
     margin: 1em 5% 1em 5%;
     width: 90%;
@@ -133,7 +160,11 @@ input[type=checkbox] {
 
 .list .button-hide {
     font-size: 1.3em;
-    font-weight: bold;
+    font-weight: 700;
+}
+
+.list .button-name {
+    font-weight: 600;
 }
 
 @media only screen and (max-width: 374px) {
@@ -141,7 +172,7 @@ input[type=checkbox] {
         font-size: 1.1em;
         font-weight: bold;
     }
-  }
+}
 
 button {
     outline: none;
@@ -155,6 +186,7 @@ button {
     text-align: center;
     padding: 0 1em 1em 1em;
     font-size: 16px;
+    font-weight: 400;
 }
 
 /* Add underline to item descriptions */
@@ -174,28 +206,32 @@ button {
     margin-top: 0;
     margin-bottom: 0;
 }
+
 .list .item-inner::after {
     display: inline;
     background-color: transparent;
 }
+
 .list .item-inner {
     padding-right: 0;
 }
+
 .tabs .tab .toolbar {
     top: 0;
 }
+
 .page-content {
     padding: 0;
 }
+
 #navbar {
     height: 80px;
 }
+
 .type {
     border-radius: 0;
 }
-.navbar-inner .button-outline {
-    background-color: white;
-}
+
 .navbar .title {
     width: 100%;
     margin: 2.3em 0 0 0;
@@ -204,24 +240,30 @@ button {
 
 /* Responsive font sizes for season/bundle tabs */
 .toolbar-inner {
-    font-size: 1.3em;
+    font-size: 1.4em;
 }
 
 @media only screen and (max-width: 474px) {
     .toolbar-inner {
-        font-size: 1.1em;
+        font-size: 1.3em;
     }
 }
 
 @media only screen and (max-width: 424px) {
     .toolbar-inner {
-        font-size: .9em;
+        font-size: 1.1em;
     }
 }
 
 @media only screen and (max-width: 374px) {
     .toolbar-inner {
-        font-size: .8em;
+        font-size: .9em;
+    }
+}
+
+@media only screen and (max-width: 319px) {
+    #navbar .title .button {
+        font-size: .6em;
     }
 }
 
@@ -231,20 +273,25 @@ button {
 
 /* Progress bar in bundles view */
 .progress {
-    background-color: black;
+    background-color: var(--white);
     border-radius: 25px;
     /* (height of inner div) / 2 + padding */
     padding: 3px;
-  }
+}
 
 .progress>div {
-    background-color: #007aff;
+    background-color: var(--accent);
     width: 0%;
     /* Adjust with JavaScript */
     height: 30px;
     border-radius: 25px 0 0 25px;
 }
+
 .complete {
-    color: #269624;
     text-decoration: line-through;
+}
+br {
+    display: block;
+    content: "";
+    margin-top: -5px;
 }
